@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using ParallelAndNarrowChange.Field;
 
-namespace ParallelAndNarrowChange{
+namespace ParallelAndNarrowChange.Tests{
     [TestFixture]
     public class ShoppingCartShould{
         private ShoppingCart cart;
