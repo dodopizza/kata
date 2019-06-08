@@ -13,8 +13,8 @@ namespace Round3.B
 
         protected void Swap(int[] input, int index1, int index2)
         {
-            int first = input[index1];
-            int second = input[index2];
+            var first = input[index1];
+            var second = input[index2];
             input[index1] = second;
             input[index2] = first;
         }

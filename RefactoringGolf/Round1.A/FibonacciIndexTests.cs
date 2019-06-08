@@ -34,10 +34,10 @@ namespace Round1.A
 			if(fibonacci >= 0 && fibonacci < 2){
 				return (int)fibonacci;
 			}
-			int indexOfFibonacci = -1;
-			int currentIndex = 2;
+			var indexOfFibonacci = -1;
+			var currentIndex = 2;
 			long f = 0;
-			List<long> sequence = new List<long> {0L, 1L};
+			var sequence = new List<long> {0L, 1L};
 			while(f < fibonacci){
 				f = sequence[currentIndex - 1] + sequence[currentIndex - 2];
 				if(f == fibonacci)

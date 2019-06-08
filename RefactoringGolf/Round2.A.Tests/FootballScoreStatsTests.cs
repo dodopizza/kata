@@ -12,7 +12,7 @@ namespace Round2.A.Tests
         [Fact]
         public void TotalsFootballScoresForTeam()
         {
-            FootballScoreStats stats = new FootballScoreStats();
+            var stats = new FootballScoreStats();
             Assert.Equal(6, stats.TeamTotal("Liverpool"));
         }
     }

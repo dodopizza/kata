@@ -8,15 +8,15 @@ namespace Round4.A
         [Fact]
         public void DonatedTitlesAreAddedToLibraryWithOneDefaultCopy()
         {
-            Library library = new Library();
-            String titleName = "Jaws 3D";
-            String donorId = "Jason123";
+            var library = new Library();
+            var titleName = "Jaws 3D";
+            var donorId = "Jason123";
             library.Donate(titleName, donorId);
-            Object[] donatedTitle = library.GetTitles()[titleName];
+            var donatedTitle = library.GetTitles()[titleName];
             Assert.Equal(titleName, (String)donatedTitle[0]);
             Assert.Equal(donorId, (String)donatedTitle[1]);
             Assert.Equal(1, (int)donatedTitle[2]);
-            Assert.Equal(1, library.GetTitlesDonatedByMember(donorId).Count);
+            Assert.Single(library.GetTitlesDonatedByMember(donorId));
         }
     }
 }

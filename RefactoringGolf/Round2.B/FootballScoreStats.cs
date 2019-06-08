@@ -17,7 +17,7 @@ namespace Round2.B
 
         public int TeamTotal(String teamName)
         {
-            Game[] played = _data.GetAllPlayed();
+            var played = _data.GetAllPlayed();
             return played.Sum(game => game.GetTeamScore(teamName));
 	}
     }

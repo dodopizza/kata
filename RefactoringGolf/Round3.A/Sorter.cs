@@ -15,11 +15,11 @@ namespace Round3.A
             switch (kind)
             {
                 case SortKind.Bubble:
-                    bool sorted = false;
+                    var sorted = false;
                     while (!sorted)
                     {
                         sorted = true;
-                        for (int i = 0; i < input.Length - 1; i++)
+                        for (var i = 0; i < input.Length - 1; i++)
                         {
                             if (input[i] > input[i + 1])
                             {
@@ -33,9 +33,9 @@ namespace Round3.A
                     input = Quicksort(input, 0, input.Length - 1);
                     break;
                 case SortKind.Insertion:
-                    for (int i = 0; i < input.Length - 1; i++)
+                    for (var i = 0; i < input.Length - 1; i++)
                     {
-                        for (int j = i + 1; j > 0; j--)
+                        for (var j = i + 1; j > 0; j--)
                         {
                             if (input[j] < input[j - 1])
                             {
@@ -50,8 +50,8 @@ namespace Round3.A
 
         private void Swap(int[] input, int index1, int index2)
         {
-            int first = input[index1];
-            int second = input[index2];
+            var first = input[index1];
+            var second = input[index2];
             input[index1] = second;
             input[index2] = first;
         }
@@ -59,8 +59,8 @@ namespace Round3.A
         private int[] Quicksort(int[] input, int left, int right)
         {
             int i = left, j = right;
-            int pivot = input[(left + right) / 2];
-            int k = i;
+            var pivot = input[(left + right) / 2];
+            var k = i;
             while (k <= j)
             {
                 while (input[k] < pivot)
@@ -76,7 +76,7 @@ namespace Round3.A
             };
 
             i = k;
-            int index = i;
+            var index = i;
             if (left < index - 1)
             {
                 Quicksort(input, left, index - 1);

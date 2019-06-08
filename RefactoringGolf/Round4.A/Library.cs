@@ -23,9 +23,9 @@ namespace Round4.A
 
         public List<Object[]> GetTitlesDonatedByMember(String donorMembershipId)
         {
-            Dictionary<string, object[]>.ValueCollection allTitles = _titles.Values;
-            List<object[]> memberTitles = new List<object[]>();
-            foreach (Object[] title in allTitles)
+            var allTitles = _titles.Values;
+            var memberTitles = new List<object[]>();
+            foreach (var title in allTitles)
             {
                 if (title[1].Equals(donorMembershipId))
                 {

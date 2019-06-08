@@ -13,17 +13,18 @@ namespace Round4.B
         [Fact]
         public void DonatedTitlesAreAddedToLibraryWithOneDefaultCopy()
         {
-            Library library = new Library();
-            String titleName = "Jaws 3D";
-            String donorId = "Jason123";
-            Member member = new Member(donorId);
-            Title title = new Title(titleName, member);
+            var library = new Library();
+            var titleName = "Jaws 3D";
+            var donorId = "Jason123";
+            var member = new Member(donorId);
+            var title = new Title(titleName, member);
+
             library.Donate(title);
-            Title donatedTitle = library.GetTitles()[titleName];
+            
             Assert.Equal(titleName, title.TitleName);
             Assert.Equal(donorId, title.DonorId);
             Assert.Equal(1, title.CopyCount);
-            Assert.Equal(1, library.GetTitlesDonatedByMember(donorId).Count);
+            Assert.Single(library.GetTitlesDonatedByMember(donorId));
         }
     }
 }

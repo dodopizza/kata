@@ -14,8 +14,8 @@ namespace Round1.B
 
         private int Seek(long fibonacci)
         {
-            int indexOfFibonacci = -1;
-            int currentIndex = 2;
+            var indexOfFibonacci = -1;
+            var currentIndex = 2;
             long f = 0;
             var sequence = BuildInitialSequence();
             while (f < fibonacci)
@@ -32,7 +32,7 @@ namespace Round1.B
 
         private List<long> BuildInitialSequence()
         {
-            List<long> sequence = new List<long> {0L, 1L};
+            var sequence = new List<long> {0L, 1L};
             return sequence;
         }
     }

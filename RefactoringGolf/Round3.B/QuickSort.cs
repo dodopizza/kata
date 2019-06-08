@@ -17,7 +17,7 @@ public class QuickSort : AbstractSort {
     int Partition(int[] array, int left, int right)
     {
         int i = left, j = right;
-        int pivot = array[(left + right) / 2];
+        var pivot = array[(left + right) / 2];
         i = PivotElements(array, i, j, pivot);
         return i;
 
@@ -43,7 +43,7 @@ public class QuickSort : AbstractSort {
 
     private int[] Quicksort(int[] input, int left, int right)
     {
-        int index = Partition(input, left, right);
+        var index = Partition(input, left, right);
         SortLeft(input, left, index);
         SortRight(input, right, index);
         return input;

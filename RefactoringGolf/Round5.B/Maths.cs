@@ -14,7 +14,7 @@ namespace Round5.B
 
         public static double Sqrroot(double number)
         {
-            double guess = number;
+            var guess = number;
             while (Math.Abs(guess - number / guess) > ErrorTolerance * guess)
             {
                 guess = (number / guess + guess) / 2.0;

@@ -23,7 +23,7 @@ namespace Round4.B
 
         public List<Title> GetTitlesDonatedByMember(String donorMembershipId)
         {
-            Dictionary<string, Title>.ValueCollection allTitles = _titles.Values;
+            var allTitles = _titles.Values;
             return allTitles.Where(title => title.DonorId.Equals(donorMembershipId)).ToList();
         }
 

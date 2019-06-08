@@ -11,11 +11,11 @@ namespace Round3.B
 
         public override int[] Sort(int[] input)
         {
-            bool sorted = false;
+            var sorted = false;
             while (!sorted)
             {
                 sorted = true;
-                for (int i = 0; i < input.Length - 1; i++)
+                for (var i = 0; i < input.Length - 1; i++)
                 {
                     if (input[i] > input[i + 1])
                     {

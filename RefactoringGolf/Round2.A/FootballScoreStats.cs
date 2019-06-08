@@ -11,9 +11,9 @@ namespace Round2.A
 
         public int TeamTotal(String teamName)
         {
-            int total = 0;
-            Game[] played = FootballData.GetAllPlayed();
-            foreach (Game game in played)
+            var total = 0;
+            var played = FootballData.GetAllPlayed();
+            foreach (var game in played)
             {
                 if (game.HomeTeam.Equals(teamName))
                 {

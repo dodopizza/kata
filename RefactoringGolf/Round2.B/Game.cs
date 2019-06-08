@@ -24,7 +24,7 @@ namespace Round2.B
 
         public int GetTeamScore(string teamName)
         {
-            int teamScore = 0;
+            var teamScore = 0;
             if (_homeTeam.Equals(teamName))
             {
                 teamScore = _homeTeamScore;
