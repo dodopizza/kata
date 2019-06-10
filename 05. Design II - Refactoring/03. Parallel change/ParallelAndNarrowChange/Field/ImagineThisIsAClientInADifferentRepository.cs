@@ -7,7 +7,7 @@ namespace ParallelAndNarrowChange.Field
         public string FormattedTotalPrice(int price)
         {
             var shoppingCart = new ShoppingCart();
-            shoppingCart.AddAnother(price);
+            shoppingCart.Add(price);
             return String.Format("Total price is {0} euro",
                 shoppingCart.CalculateTotalPrice());
         }

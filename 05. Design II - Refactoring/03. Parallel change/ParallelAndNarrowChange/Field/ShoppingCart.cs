@@ -9,9 +9,9 @@
             return price;
         }
 
-        public void AddAnother(int anotherPrice)
+        public void Add(int price)
         {
-            price += anotherPrice;
+            this.price += price;
         }
 
         public bool HasDiscount()

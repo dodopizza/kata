@@ -5,7 +5,7 @@ using ParallelAndNarrowChange.Field;
 namespace ParallelAndNarrowChange.Tests
 {
     [TestFixture]
-    public class ShoppingCartWithMultipleItemsShould
+    public class ShoppingCartShould
     {
         private ShoppingCart cart;
 
@@ -18,7 +18,7 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void calculate_the_final_price()
         {
-            cart.AddAnother(10);
+            cart.Add(10);
 
             cart.CalculateTotalPrice().Should().Be(10);
         }
@@ -26,8 +26,8 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void calculate_the_final_price_of_two_items()
         {
-            cart.AddAnother(10);
-            cart.AddAnother(20);
+            cart.Add(10);
+            cart.Add(20);
 
             cart.CalculateTotalPrice().Should().Be(10 + 20);
         }
@@ -35,7 +35,7 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void knows_the_number_of_items()
         {
-            cart.AddAnother(10);
+            cart.Add(10);
 
             cart.NumberOfProducts().Should().Be(1);
         }
@@ -43,7 +43,7 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void may_offer_discounts_when_there_at_least_one_expensive_product()
         {
-            cart.AddAnother(120);
+            cart.Add(120);
 
             cart.HasDiscount().Should().BeTrue();
         }
@@ -51,7 +51,7 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void does_not_offer_discount_for_cheap_products()
         {
-            cart.AddAnother(10);
+            cart.Add(10);
 
             cart.HasDiscount().Should().BeFalse();
         }
