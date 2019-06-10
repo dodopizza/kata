@@ -3,6 +3,7 @@
     public class ShoppingCart
     {
         private decimal price;
+        private int numberOfProducts;
 
         public decimal CalculateTotalPrice()
         {
@@ -12,6 +13,7 @@
         public void Add(int price)
         {
             this.price += price;
+            numberOfProducts++;
         }
 
         public bool HasDiscount()
@@ -26,7 +28,7 @@
 
         public int TotalNumberOfProducts()
         {
-            return 2;
+            return numberOfProducts;
         }
     }
 }

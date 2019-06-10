@@ -50,6 +50,16 @@ namespace ParallelAndNarrowChange.Tests
         }
 
         [Test]
+        public void knows_the_number_of_three_items()
+        {
+            cart.Add(10);
+            cart.Add(20);
+            cart.Add(30);
+
+            cart.TotalNumberOfProducts().Should().Be(3);
+        }
+
+        [Test]
         public void may_offer_discounts_when_there_at_least_one_expensive_product()
         {
             cart.Add(120);
