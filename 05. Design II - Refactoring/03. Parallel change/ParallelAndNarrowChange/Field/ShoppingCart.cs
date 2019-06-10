@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ParallelAndNarrowChange.Field
+﻿namespace ParallelAndNarrowChange.Field
 {
     public class ShoppingCart
     {
@@ -23,13 +21,7 @@ namespace ParallelAndNarrowChange.Field
             return price > 100;
         }
 
-        [Obsolete("Use TotalNumberOfProducts")]
         public int NumberOfProducts()
-        {
-            return 1;
-        }
-
-        public int TotalNumberOfProducts()
         {
             return numberOfProducts;
         }

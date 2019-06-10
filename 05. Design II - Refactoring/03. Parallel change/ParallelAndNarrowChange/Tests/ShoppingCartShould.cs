@@ -33,19 +33,11 @@ namespace ParallelAndNarrowChange.Tests
         }
 
         [Test]
-        public void knows_the_number_of_items()
-        {
-            cart.Add(10);
-
-            cart.NumberOfProducts().Should().Be(1);
-        }
-
-        [Test]
         public void knows_the_number_of_one_item()
         {
             cart.Add(10);
 
-            cart.TotalNumberOfProducts().Should().Be(1);
+            cart.NumberOfProducts().Should().Be(1);
         }
 
         [Test]
@@ -54,7 +46,7 @@ namespace ParallelAndNarrowChange.Tests
             cart.Add(10);
             cart.Add(20);
 
-            cart.TotalNumberOfProducts().Should().Be(2);
+            cart.NumberOfProducts().Should().Be(2);
         }
 
         [Test]
@@ -64,7 +56,7 @@ namespace ParallelAndNarrowChange.Tests
             cart.Add(20);
             cart.Add(30);
 
-            cart.TotalNumberOfProducts().Should().Be(3);
+            cart.NumberOfProducts().Should().Be(3);
         }
 
         [Test]
