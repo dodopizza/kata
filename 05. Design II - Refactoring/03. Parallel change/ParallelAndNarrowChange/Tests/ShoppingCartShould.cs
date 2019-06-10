@@ -41,6 +41,14 @@ namespace ParallelAndNarrowChange.Tests
         }
 
         [Test]
+        public void knows_the_number_of_one_item()
+        {
+            cart.Add(10);
+
+            cart.TotalNumberOfProducts().Should().Be(1);
+        }
+
+        [Test]
         public void knows_the_number_of_two_items()
         {
             cart.Add(10);
