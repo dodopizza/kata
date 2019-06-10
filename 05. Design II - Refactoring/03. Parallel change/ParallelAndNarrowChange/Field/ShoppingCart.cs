@@ -23,5 +23,10 @@
         {
             return 1;
         }
+
+        public int TotalNumberOfProducts()
+        {
+            return 2;
+        }
     }
 }
