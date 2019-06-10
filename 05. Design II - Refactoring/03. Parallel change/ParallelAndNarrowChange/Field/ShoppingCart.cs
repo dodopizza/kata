@@ -23,5 +23,10 @@
         {
             return 1;
         }
+
+        public void AddAnother(int anotherPrice)
+        {
+            price += anotherPrice;
+        }
     }
 }
