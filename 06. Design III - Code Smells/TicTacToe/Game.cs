@@ -79,23 +79,23 @@ namespace TicTacToe
 			{
 				throw new Exception("Invalid next player");
 			}
-			else if (IsNotFirstMoveButPlayerAlreadyPlayedTile(x, y))
+			else if (IsNotFirstMoveButPlayerAlreadyPlayedTile(new Coordinate(x, y)))
 			{
 				throw new Exception("Invalid position");
 			}
 
-			UpdateGameState(symbol, x, y);
+			UpdateGameState(symbol, new Coordinate(x, y));
 		}
 
-		private void UpdateGameState(char symbol, int x, int y)
+		private void UpdateGameState(char symbol, Coordinate coordinate)
 		{
 			_lastSymbol = symbol;
-			_board.AddTileAt(symbol, new Coordinate(x, y));
+			_board.AddTileAt(symbol, coordinate);
 		}
 
-		private bool IsNotFirstMoveButPlayerAlreadyPlayedTile(int x, int y)
+		private bool IsNotFirstMoveButPlayerAlreadyPlayedTile(Coordinate coordinate)
 		{
-			return _board.TileAt(new Coordinate(x, y)).Symbol != ' ';
+			return _board.TileAt(coordinate).Symbol != ' ';
 		}
 
 		private bool IsNotFirstMoveButPlayerRepeated(char symbol)
