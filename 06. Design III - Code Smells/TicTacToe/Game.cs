@@ -119,7 +119,7 @@ namespace TicTacToe
 
 		public char Winner()
 		{
-			if (IsFirstRowFilled())
+			if (IsRowFilled(0))
 			{
 				if (IsFirstRowFullSameSymbol())
 				{
@@ -127,7 +127,7 @@ namespace TicTacToe
 				}
 			}
 
-			if (IsSecondRowFilled())
+			if (IsRowFilled(1))
 			{
 				if (IsMiddleRowFullSameSymbol())
 				{
@@ -135,7 +135,7 @@ namespace TicTacToe
 				}
 			}
 
-			if (IsThirdRowFilled())
+			if (IsRowFilled(2))
 			{
 				if (IsThirdRowSameSymbol())
 				{
@@ -146,25 +146,12 @@ namespace TicTacToe
 			return ' ';
 		}
 
-		private bool IsFirstRowFilled()
+		private bool IsRowFilled(int rowNo)
 		{
-			return _board.TileAt(new Coordinate(0, 0)).Symbol != ' ' &&
-			       _board.TileAt(new Coordinate(0, 1)).Symbol != ' ' &&
-			       _board.TileAt(new Coordinate(0, 2)).Symbol != ' ';
-		}
+			return _board.TileAt(new Coordinate(rowNo, 0)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(rowNo, 1)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(rowNo, 2)).Symbol != ' ';
 
-		private bool IsSecondRowFilled()
-		{
-			return _board.TileAt(new Coordinate(1, 0)).Symbol != ' ' &&
-			       _board.TileAt(new Coordinate(1, 1)).Symbol != ' ' &&
-			       _board.TileAt(new Coordinate(1, 2)).Symbol != ' ';
-		}
-
-		private bool IsThirdRowFilled()
-		{
-			return _board.TileAt(new Coordinate(2, 0)).Symbol != ' ' &&
-			       _board.TileAt(new Coordinate(2, 1)).Symbol != ' ' &&
-			       _board.TileAt(new Coordinate(2, 2)).Symbol != ' ';
 		}
 
 		private bool IsFirstRowFullSameSymbol()
