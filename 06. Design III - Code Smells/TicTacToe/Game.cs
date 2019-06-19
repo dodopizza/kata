@@ -50,29 +50,49 @@ namespace TicTacToe
         
         public void Play(char symbol, int x, int y)
         {
-            //if first move
-            if(_lastSymbol == ' ')
+            if(IsFirstMove())
             {
-                //if player is X
-                if(symbol == 'O')
+                if(IsPlayerX(symbol))
                 {
                     throw new Exception("Invalid first player");
                 }
             } 
-            //if not first move but player repeated
-            else if (symbol == _lastSymbol)
+            else if (IsNotFirstMoveButPlayerRepeated(symbol))
             {
                 throw new Exception("Invalid next player");
             }
-            //if not first move but play on an already played tile
-            else if (_board.TileAt(x, y).Symbol != ' ')
+            else if (IsNotFirstMoveButPlayerAlreadyPlayedTile(x, y))
             {
                 throw new Exception("Invalid position");
             }
 
-            // update game state
+            UpdateGameState(symbol, x, y);
+        }
+
+        private void UpdateGameState(char symbol, int x, int y)
+        {
             _lastSymbol = symbol;
             _board.AddTileAt(symbol, x, y);
+        }
+
+        private bool IsNotFirstMoveButPlayerAlreadyPlayedTile(int x, int y)
+        {
+            return _board.TileAt(x, y).Symbol != ' ';
+        }
+
+        private bool IsNotFirstMoveButPlayerRepeated(char symbol)
+        {
+            return symbol == _lastSymbol;
+        }
+
+        private static bool IsPlayerX(char symbol)
+        {
+            return symbol == 'O';
+        }
+
+        private bool IsFirstMove()
+        {
+            return _lastSymbol == ' ';
         }
 
         public char Winner()
