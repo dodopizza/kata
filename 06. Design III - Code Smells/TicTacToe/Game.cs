@@ -14,6 +14,11 @@ namespace TicTacToe
 
 		public int X { get; }
 		public int Y { get; }
+
+		public bool IsSame(Coordinate coordinate)
+		{
+			return X == coordinate.X && Y == coordinate.Y;
+		}
 	}
 
 	public class Tile
@@ -29,10 +34,8 @@ namespace TicTacToe
 
 		public bool IsSame(Coordinate coordinate)
 		{
-			return Coordinate.X == coordinate.X && Coordinate.Y == coordinate.Y;
+			return Coordinate.IsSame(coordinate);
 		}
-
-
 	}
 
 	public class Board
