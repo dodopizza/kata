@@ -66,7 +66,7 @@ namespace TicTacToe
 		private char _lastSymbol = ' ';
 		private Board _board = new Board();
 
-		public void Play(char symbol, int x, int y)
+		public void Play(char symbol, Coordinate coordinate)
 		{
 			if (IsFirstMove())
 			{
@@ -79,12 +79,12 @@ namespace TicTacToe
 			{
 				throw new Exception("Invalid next player");
 			}
-			else if (IsNotFirstMoveButPlayerAlreadyPlayedTile(new Coordinate(x, y)))
+			else if (IsNotFirstMoveButPlayerAlreadyPlayedTile(coordinate))
 			{
 				throw new Exception("Invalid position");
 			}
 
-			UpdateGameState(symbol, new Coordinate(x, y));
+			UpdateGameState(symbol, coordinate);
 		}
 
 		private void UpdateGameState(char symbol, Coordinate coordinate)
