@@ -55,11 +55,9 @@ namespace TicTacToe
 			return _plays.Single(tile => tile.IsSame(coordinate));
 		}
 
-		public void AddTileAt(char symbol, int x, int y)
+		public void AddTileAt(char symbol, Coordinate coordinate)
 		{
-			var newTile = new Tile(new Coordinate(x, y), symbol);
-
-			_plays.Single(tile => tile.IsSame(new Coordinate(x, y))).Symbol = symbol;
+			_plays.Single(tile => tile.IsSame(coordinate)).Symbol = symbol;
 		}
 	}
 
@@ -92,7 +90,7 @@ namespace TicTacToe
 		private void UpdateGameState(char symbol, int x, int y)
 		{
 			_lastSymbol = symbol;
-			_board.AddTileAt(symbol, x, y);
+			_board.AddTileAt(symbol, new Coordinate(x, y));
 		}
 
 		private bool IsNotFirstMoveButPlayerAlreadyPlayedTile(int x, int y)
