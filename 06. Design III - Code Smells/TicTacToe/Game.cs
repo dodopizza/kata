@@ -98,7 +98,7 @@ namespace TicTacToe
 
 		public char Winner()
 		{
-			if (IsPositionInFirstRow())
+			if (IsFirstRowFilled())
 			{
 				if (IsFirstRowFullSameSymbol())
 				{
@@ -106,7 +106,7 @@ namespace TicTacToe
 				}
 			}
 
-			if (IsPositionInSecondRow())
+			if (IsSecondRowFilled())
 			{
 				if (IsMiddleRowFullSameSymbol())
 				{
@@ -114,16 +114,9 @@ namespace TicTacToe
 				}
 			}
 
-			//if the positions in first row are taken
-			if (_board.TileAt(2, 0).Symbol != ' ' &&
-			    _board.TileAt(2, 1).Symbol != ' ' &&
-			    _board.TileAt(2, 2).Symbol != ' ')
+			if (IsThirdRowFilled())
 			{
-				//if middle row is full with same symbol
-				if (_board.TileAt(2, 0).Symbol ==
-				    _board.TileAt(2, 1).Symbol &&
-				    _board.TileAt(2, 2).Symbol ==
-				    _board.TileAt(2, 1).Symbol)
+				if (IsThirdRowSameSymbol())
 				{
 					return _board.TileAt(2, 0).Symbol;
 				}
@@ -132,19 +125,25 @@ namespace TicTacToe
 			return ' ';
 		}
 
-		private bool IsMiddleRowFullSameSymbol()
+		private bool IsFirstRowFilled()
 		{
-			return _board.TileAt(1, 0).Symbol ==
-			       _board.TileAt(1, 1).Symbol &&
-			       _board.TileAt(1, 2).Symbol ==
-			       _board.TileAt(1, 1).Symbol;
+			return _board.TileAt(0, 0).Symbol != ' ' &&
+			       _board.TileAt(0, 1).Symbol != ' ' &&
+			       _board.TileAt(0, 2).Symbol != ' ';
 		}
 
-		private bool IsPositionInSecondRow()
+		private bool IsSecondRowFilled()
 		{
 			return _board.TileAt(1, 0).Symbol != ' ' &&
 			       _board.TileAt(1, 1).Symbol != ' ' &&
 			       _board.TileAt(1, 2).Symbol != ' ';
+		}
+
+		private bool IsThirdRowFilled()
+		{
+			return _board.TileAt(2, 0).Symbol != ' ' &&
+			       _board.TileAt(2, 1).Symbol != ' ' &&
+			       _board.TileAt(2, 2).Symbol != ' ';
 		}
 
 		private bool IsFirstRowFullSameSymbol()
@@ -155,11 +154,20 @@ namespace TicTacToe
 			       _board.TileAt(0, 1).Symbol;
 		}
 
-		private bool IsPositionInFirstRow()
+		private bool IsMiddleRowFullSameSymbol()
 		{
-			return _board.TileAt(0, 0).Symbol != ' ' &&
-			       _board.TileAt(0, 1).Symbol != ' ' &&
-			       _board.TileAt(0, 2).Symbol != ' ';
+			return _board.TileAt(1, 0).Symbol ==
+			       _board.TileAt(1, 1).Symbol &&
+			       _board.TileAt(1, 2).Symbol ==
+			       _board.TileAt(1, 1).Symbol;
+		}
+
+		private bool IsThirdRowSameSymbol()
+		{
+			return _board.TileAt(2, 0).Symbol ==
+			       _board.TileAt(2, 1).Symbol &&
+			       _board.TileAt(2, 2).Symbol ==
+			       _board.TileAt(2, 1).Symbol;
 		}
 	}
 }
