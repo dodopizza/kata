@@ -6,8 +6,15 @@ namespace TicTacToe
 {
 	public class Tile
 	{
-		public int X { get; set; }
-		public int Y { get; set; }
+		public Tile(int x, int y, char symbol)
+		{
+			X = x;
+			Y = y;
+			Symbol = symbol;
+		}
+
+		public int X { get; }
+		public int Y { get; }
 		public char Symbol { get; set; }
 
 		public bool IsSame(int x, int y)
@@ -26,7 +33,7 @@ namespace TicTacToe
 			{
 				for (int j = 0; j < 3; j++)
 				{
-					_plays.Add(new Tile {X = i, Y = j, Symbol = ' '});
+					_plays.Add(new Tile(i, j, ' '));
 				}
 			}
 		}
@@ -38,14 +45,9 @@ namespace TicTacToe
 
 		public void AddTileAt(char symbol, int x, int y)
 		{
-			var newTile = new Tile
-			{
-				X = x,
-				Y = y,
-				Symbol = symbol
-			};
+			var newTile = new Tile(x, y, symbol);
 
-			_plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
+			_plays.Single(tile => tile.IsSame(x, y)).Symbol = symbol;
 		}
 	}
 
