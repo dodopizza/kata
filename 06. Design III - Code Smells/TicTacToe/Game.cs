@@ -24,14 +24,12 @@ namespace TicTacToe
 			Symbol = symbol;
 		}
 
-		public Coordinate Coordinate { get; set; }
-		public int X => Coordinate.X;
-		public int Y => Coordinate.Y;
+		public Coordinate Coordinate { get; }
 		public char Symbol { get; set; }
 
 		public bool IsSame(Coordinate coordinate)
 		{
-			return X == coordinate.X && Y == coordinate.Y;
+			return Coordinate.X == coordinate.X && Coordinate.Y == coordinate.Y;
 		}
 
 
