@@ -29,10 +29,12 @@ namespace TicTacToe
 		public int Y => Coordinate.Y;
 		public char Symbol { get; set; }
 
-		public bool IsSame(int x, int y)
+		public bool IsSame(Coordinate coordinate)
 		{
-			return X == x && Y == y;
+			return X == coordinate.X && Y == coordinate.Y;
 		}
+
+
 	}
 
 	public class Board
@@ -52,14 +54,14 @@ namespace TicTacToe
 
 		public Tile TileAt(int x, int y)
 		{
-			return _plays.Single(tile => tile.IsSame(x, y));
+			return _plays.Single(tile => tile.IsSame(new Coordinate(x, y)));
 		}
 
 		public void AddTileAt(char symbol, int x, int y)
 		{
 			var newTile = new Tile(x, y, symbol);
 
-			_plays.Single(tile => tile.IsSame(x, y)).Symbol = symbol;
+			_plays.Single(tile => tile.IsSame(new Coordinate(x, y))).Symbol = symbol;
 		}
 	}
 
