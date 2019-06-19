@@ -23,18 +23,19 @@ namespace TicTacToe
 
 	public class Tile
 	{
+		private readonly Coordinate _coordinate;
+
 		public Tile(Coordinate coordinate, char symbol)
 		{
-			Coordinate = coordinate;
+			this._coordinate = coordinate;
 			Symbol = symbol;
 		}
 
-		public Coordinate Coordinate { get; }
 		public char Symbol { get; set; }
 
 		public bool IsSame(Coordinate coordinate)
 		{
-			return Coordinate.IsSame(coordinate);
+			return this._coordinate.IsSame(coordinate);
 		}
 	}
 
