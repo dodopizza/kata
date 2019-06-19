@@ -4,17 +4,29 @@ using System.Collections.Generic;
 
 namespace TicTacToe
 {
-	public class Tile
+	public class Coordinate
 	{
-		public Tile(int x, int y, char symbol)
+		public Coordinate(int x, int y)
 		{
 			X = x;
 			Y = y;
-			Symbol = symbol;
 		}
 
 		public int X { get; }
 		public int Y { get; }
+	}
+
+	public class Tile
+	{
+		public Tile(int x, int y, char symbol)
+		{
+			Coordinate = new Coordinate(x, y);
+			Symbol = symbol;
+		}
+
+		public Coordinate Coordinate { get; set; }
+		public int X => Coordinate.X;
+		public int Y => Coordinate.Y;
 		public char Symbol { get; set; }
 
 		public bool IsSame(int x, int y)
