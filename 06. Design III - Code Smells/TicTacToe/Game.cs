@@ -18,9 +18,9 @@ namespace TicTacToe
 
 	public class Tile
 	{
-		public Tile(int x, int y, char symbol)
+		public Tile(Coordinate coordinate, char symbol)
 		{
-			Coordinate = new Coordinate(x, y);
+			Coordinate = coordinate;
 			Symbol = symbol;
 		}
 
@@ -47,7 +47,7 @@ namespace TicTacToe
 			{
 				for (int j = 0; j < 3; j++)
 				{
-					_plays.Add(new Tile(i, j, ' '));
+					_plays.Add(new Tile(new Coordinate(i, j), ' '));
 				}
 			}
 		}
@@ -59,7 +59,7 @@ namespace TicTacToe
 
 		public void AddTileAt(char symbol, int x, int y)
 		{
-			var newTile = new Tile(x, y, symbol);
+			var newTile = new Tile(new Coordinate(x, y), symbol);
 
 			_plays.Single(tile => tile.IsSame(new Coordinate(x, y))).Symbol = symbol;
 		}
