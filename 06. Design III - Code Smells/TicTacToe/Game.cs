@@ -52,9 +52,9 @@ namespace TicTacToe
 			}
 		}
 
-		public Tile TileAt(int x, int y)
+		public Tile TileAt(Coordinate coordinate)
 		{
-			return _plays.Single(tile => tile.IsSame(new Coordinate(x, y)));
+			return _plays.Single(tile => tile.IsSame(coordinate));
 		}
 
 		public void AddTileAt(char symbol, int x, int y)
@@ -99,7 +99,7 @@ namespace TicTacToe
 
 		private bool IsNotFirstMoveButPlayerAlreadyPlayedTile(int x, int y)
 		{
-			return _board.TileAt(x, y).Symbol != ' ';
+			return _board.TileAt(new Coordinate(x, y)).Symbol != ' ';
 		}
 
 		private bool IsNotFirstMoveButPlayerRepeated(char symbol)
@@ -123,7 +123,7 @@ namespace TicTacToe
 			{
 				if (IsFirstRowFullSameSymbol())
 				{
-					return _board.TileAt(0, 0).Symbol;
+					return _board.TileAt(new Coordinate(0, 0)).Symbol;
 				}
 			}
 
@@ -131,7 +131,7 @@ namespace TicTacToe
 			{
 				if (IsMiddleRowFullSameSymbol())
 				{
-					return _board.TileAt(1, 0).Symbol;
+					return _board.TileAt(new Coordinate(1, 0)).Symbol;
 				}
 			}
 
@@ -139,7 +139,7 @@ namespace TicTacToe
 			{
 				if (IsThirdRowSameSymbol())
 				{
-					return _board.TileAt(2, 0).Symbol;
+					return _board.TileAt(new Coordinate(2, 0)).Symbol;
 				}
 			}
 
@@ -148,47 +148,47 @@ namespace TicTacToe
 
 		private bool IsFirstRowFilled()
 		{
-			return _board.TileAt(0, 0).Symbol != ' ' &&
-			       _board.TileAt(0, 1).Symbol != ' ' &&
-			       _board.TileAt(0, 2).Symbol != ' ';
+			return _board.TileAt(new Coordinate(0, 0)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(0, 1)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(0, 2)).Symbol != ' ';
 		}
 
 		private bool IsSecondRowFilled()
 		{
-			return _board.TileAt(1, 0).Symbol != ' ' &&
-			       _board.TileAt(1, 1).Symbol != ' ' &&
-			       _board.TileAt(1, 2).Symbol != ' ';
+			return _board.TileAt(new Coordinate(1, 0)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(1, 1)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(1, 2)).Symbol != ' ';
 		}
 
 		private bool IsThirdRowFilled()
 		{
-			return _board.TileAt(2, 0).Symbol != ' ' &&
-			       _board.TileAt(2, 1).Symbol != ' ' &&
-			       _board.TileAt(2, 2).Symbol != ' ';
+			return _board.TileAt(new Coordinate(2, 0)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(2, 1)).Symbol != ' ' &&
+			       _board.TileAt(new Coordinate(2, 2)).Symbol != ' ';
 		}
 
 		private bool IsFirstRowFullSameSymbol()
 		{
-			return _board.TileAt(0, 0).Symbol ==
-			       _board.TileAt(0, 1).Symbol &&
-			       _board.TileAt(0, 2).Symbol ==
-			       _board.TileAt(0, 1).Symbol;
+			return _board.TileAt(new Coordinate(0, 0)).Symbol ==
+			       _board.TileAt(new Coordinate(0, 1)).Symbol &&
+			       _board.TileAt(new Coordinate(0, 2)).Symbol ==
+			       _board.TileAt(new Coordinate(0, 1)).Symbol;
 		}
 
 		private bool IsMiddleRowFullSameSymbol()
 		{
-			return _board.TileAt(1, 0).Symbol ==
-			       _board.TileAt(1, 1).Symbol &&
-			       _board.TileAt(1, 2).Symbol ==
-			       _board.TileAt(1, 1).Symbol;
+			return _board.TileAt(new Coordinate(1, 0)).Symbol ==
+			       _board.TileAt(new Coordinate(1, 1)).Symbol &&
+			       _board.TileAt(new Coordinate(1, 2)).Symbol ==
+			       _board.TileAt(new Coordinate(1, 1)).Symbol;
 		}
 
 		private bool IsThirdRowSameSymbol()
 		{
-			return _board.TileAt(2, 0).Symbol ==
-			       _board.TileAt(2, 1).Symbol &&
-			       _board.TileAt(2, 2).Symbol ==
-			       _board.TileAt(2, 1).Symbol;
+			return _board.TileAt(new Coordinate(2, 0)).Symbol ==
+			       _board.TileAt(new Coordinate(2, 1)).Symbol &&
+			       _board.TileAt(new Coordinate(2, 2)).Symbol ==
+			       _board.TileAt(new Coordinate(2, 1)).Symbol;
 		}
 	}
 }
