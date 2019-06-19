@@ -9,6 +9,11 @@ namespace TicTacToe
 		public int X { get; set; }
 		public int Y { get; set; }
 		public char Symbol { get; set; }
+
+		public bool IsSame(int x, int y)
+		{
+			return X == x && Y == y;
+		}
 	}
 
 	public class Board
@@ -28,7 +33,7 @@ namespace TicTacToe
 
 		public Tile TileAt(int x, int y)
 		{
-			return _plays.Single(tile => tile.X == x && tile.Y == y);
+			return _plays.Single(tile => tile.IsSame(x, y));
 		}
 
 		public void AddTileAt(char symbol, int x, int y)
