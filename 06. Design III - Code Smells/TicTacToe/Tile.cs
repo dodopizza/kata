@@ -2,8 +2,18 @@ namespace TicTacToe
 {
     public class Tile
     {
-        public int X {get; set;}
-        public int Y {get; set;}
-        public char Symbol {get; set;}
+        public Tile(Coordinate coordinate)
+        {
+            Coordinate = coordinate;
+            Symbol = ' ';
+        }
+
+        public Coordinate Coordinate { get; }
+        public char Symbol {get; private set;}
+
+        public void Play(char symbol)
+        {
+            Symbol = symbol;
+        }
     }
 }
