@@ -18,31 +18,34 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void calculate_the_final_price()
         {
-            var shoppingCart = cart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart();
             shoppingCart.Add(10);
-            
+
             var totalPrice = shoppingCart.CalculateTotalPrice();
-            
+
             totalPrice.Should().Be(10);
         }
 
         [Test]
         public void knows_the_number_of_items()
         {
-            var shoppingCart = cart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart();
             shoppingCart.Add(10);
 
             var numberOfProducts = shoppingCart.NumberOfProducts();
-            
+
             numberOfProducts.Should().Be(1);
         }
 
         [Test]
         public void may_offer_discounts_when_there_at_least_one_expensive_product()
         {
-            cart.Add(120);
+            var shoppingCart = new ShoppingCart();
+            shoppingCart.Add(120);
 
-            cart.HasDiscount().Should().BeTrue();
+            var hasDiscount = shoppingCart.HasDiscount();
+
+            hasDiscount.Should().BeTrue();
         }
 
         [Test]
