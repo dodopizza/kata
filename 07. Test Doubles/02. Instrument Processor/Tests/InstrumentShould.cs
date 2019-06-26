@@ -1,3 +1,4 @@
+using System;
 using Domain;
 using NUnit.Framework;
 
@@ -10,11 +11,8 @@ namespace Tests
         {
             var errorWasRaised = false;
             IInstrument instrument = new Instrument();
-            instrument.Error += (sender, args) => { errorWasRaised = true; };
-            
-            instrument.Execute(null);
-            
-            Assert.True(errorWasRaised);
+
+            Assert.Throws<NullReferenceException>(() => instrument.Execute(null));
         }
     }
 }

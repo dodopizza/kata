@@ -37,7 +37,7 @@ namespace Tests
         }
 
         [Test]
-        public void CanExecuteTaskOnInstrument()
+        public void ExecuteTaskOnInstrument()
         {
             var taskDispatcher = new Mock<ITaskDispatcher>();
             taskDispatcher
