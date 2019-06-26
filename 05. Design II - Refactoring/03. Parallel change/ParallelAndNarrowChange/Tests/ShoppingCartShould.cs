@@ -7,14 +7,6 @@ namespace ParallelAndNarrowChange.Tests
     [TestFixture]
     public class ShoppingCartShould
     {
-        private ShoppingCart cart;
-
-        [SetUp]
-        public void SetUp()
-        {
-            cart = new ShoppingCart();
-        }
-
         [Test]
         public void calculate_the_final_price()
         {
@@ -51,7 +43,7 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void does_not_offer_discount_for_cheap_products()
         {
-            var shoppingCart = cart = new ShoppingCart();
+            var shoppingCart = new ShoppingCart();
             shoppingCart.Add(10);
 
             var hasDiscount = shoppingCart.HasDiscount();
