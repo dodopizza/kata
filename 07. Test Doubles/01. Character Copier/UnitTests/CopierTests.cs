@@ -16,5 +16,17 @@ namespace UnitTests
 
 			source.VerifyGetChar();
 		}
+
+		[Fact]
+		public void WhenCopy_ShouldSetCharFromSourceToDestination()
+		{
+			var source = new FakeSource('a');
+			var destination = new SpyDestination();
+			var copier = new Copier(source, destination);
+
+			copier.Copy();
+
+			destination.CalledWithChar('a');
+		}
 	}
 }
