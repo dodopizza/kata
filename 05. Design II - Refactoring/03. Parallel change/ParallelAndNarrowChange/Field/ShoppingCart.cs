@@ -1,21 +1,26 @@
 ﻿namespace ParallelAndNarrowChange.Field
 {
-    public class ShoppingCart{
+    public class ShoppingCart
+    {
         private decimal price;
 
-        public decimal CalculateTotalPrice(){
+        public decimal CalculateTotalPrice()
+        {
             return price;
         }
 
-        public bool HasDiscount(){
+        public bool HasDiscount()
+        {
             return price > 100;
         }
 
-        public void Add(int aPrice){
-            this.price = aPrice;
+        public void Add(int aPrice)
+        {
+            price = aPrice;
         }
 
-        public int NumberOfProducts(){
+        public int NumberOfProducts()
+        {
             return 1;
         }
     }
