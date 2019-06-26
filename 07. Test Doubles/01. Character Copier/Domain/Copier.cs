@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using System;
+
+namespace Domain
 {
     public class Copier
     {
@@ -7,8 +9,8 @@
 
         public Copier(ISource source, IDestination destination)
         {
-            _source = source;
-            _destination = destination;
+            _source = source ?? throw new ArgumentNullException(nameof(source));
+            _destination = destination ?? throw new ArgumentNullException(nameof(destination));
         }
 
         public void Copy()
