@@ -8,7 +8,7 @@ namespace Tests
     {
 
         [Test]
-        public void GetTaskFromTaskDispatcher()
+        public void GetPlayTaskFromTaskDispatcher()
         {
             var taskDispatcher = new Mock<ITaskDispatcher>();
             taskDispatcher
@@ -20,18 +20,19 @@ namespace Tests
             
             Assert.AreEqual("play", currentTask);
         }
-    }
 
-    public class InstrumentProcessor
-    {
-        public InstrumentProcessor(ITaskDispatcher taskDispatcher)
+        [Test]
+        public void GetMuteTaskFromTaskDispatcher()
         {
+            var taskDispatcher = new Mock<ITaskDispatcher>();
+            taskDispatcher
+                .Setup(_ => _.GetTask())
+                .Returns("mute");
+            var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object);
             
-        }
-
-        public string GetCurrentTask()
-        {
-            return "play";
+            var currentTask = instrumentProsessor.GetCurrentTask();
+            
+            Assert.AreEqual("mute", currentTask);
         }
     }
 }
