@@ -28,9 +28,11 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void knows_the_number_of_items()
         {
-            cart.Add(10);
+            var shoppingCart = cart = new ShoppingCart();
+            
+            shoppingCart.Add(10);
 
-            cart.NumberOfProducts().Should().Be(1);
+            shoppingCart.NumberOfProducts().Should().Be(1);
         }
 
         [Test]
