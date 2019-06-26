@@ -51,9 +51,12 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void does_not_offer_discount_for_cheap_products()
         {
-            cart.Add(10);
+            var shoppingCart = cart = new ShoppingCart();
+            shoppingCart.Add(10);
 
-            cart.HasDiscount().Should().BeFalse();
+            var hasDiscount = shoppingCart.HasDiscount();
+            
+            hasDiscount.Should().BeFalse();
         }
     }
 }
