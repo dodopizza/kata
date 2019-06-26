@@ -6,7 +6,6 @@ namespace Tests
 {
     public class InstrumentProcessorCan
     {
-
         [Test]
         public void GetPlayTaskFromTaskDispatcher()
         {
@@ -15,9 +14,9 @@ namespace Tests
                 .Setup(_ => _.GetTask())
                 .Returns("play");
             var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object);
-            
+
             instrumentProsessor.Process();
-            
+
             Assert.AreEqual("play", instrumentProsessor.GetCurrentTask());
         }
 
@@ -29,10 +28,25 @@ namespace Tests
                 .Setup(_ => _.GetTask())
                 .Returns("mute");
             var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object);
-            
+
             instrumentProsessor.Process();
-            
+
             Assert.AreEqual("mute", instrumentProsessor.GetCurrentTask());
+        }
+
+        [Test]
+        public void CanExecuteTaskOnInstrument()
+        {
+            var taskDispatcher = new Mock<ITaskDispatcher>();
+            taskDispatcher
+                .Setup(_ => _.GetTask())
+                .Returns("mute");
+            var instrument = new Mock<IInstrument>();
+            var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object, instrument.Object);
+
+            instrumentProsessor.Process();
+
+            instrument.Verify(_ => _.Execute("mute"), Times.Once);
         }
     }
 }
