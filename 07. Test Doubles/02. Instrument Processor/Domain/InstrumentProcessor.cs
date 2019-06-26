@@ -6,11 +6,6 @@ namespace Domain
         private readonly IInstrument _instrument;
         private string _currentTask;
 
-        public InstrumentProcessor(ITaskDispatcher taskDispatcher)
-        {
-            _taskDispatcher = taskDispatcher;
-        }
-
         public InstrumentProcessor(ITaskDispatcher taskDispatcher, IInstrument instrument)
         {
             _taskDispatcher = taskDispatcher;
@@ -25,8 +20,7 @@ namespace Domain
         public void Process()
         {
             _currentTask = _taskDispatcher.GetTask();
-            if (_instrument != null)
-                _instrument.Execute(_currentTask);
+            _instrument.Execute(_currentTask);
         }
     }
 }

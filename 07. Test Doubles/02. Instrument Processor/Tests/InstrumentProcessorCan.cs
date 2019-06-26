@@ -13,7 +13,8 @@ namespace Tests
             taskDispatcher
                 .Setup(_ => _.GetTask())
                 .Returns("play");
-            var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object);
+            var instrument = new Mock<IInstrument>();
+            var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object, instrument.Object);
 
             instrumentProsessor.Process();
 
@@ -27,7 +28,8 @@ namespace Tests
             taskDispatcher
                 .Setup(_ => _.GetTask())
                 .Returns("mute");
-            var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object);
+            var instrument = new Mock<IInstrument>();
+            var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object, instrument.Object);
 
             instrumentProsessor.Process();
 
