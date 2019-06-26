@@ -3,6 +3,7 @@
     public class ShoppingCart
     {
         private decimal price;
+        private int productCount;
 
         public decimal CalculateTotalPrice()
         {
@@ -17,11 +18,12 @@
         public void Add(int aPrice)
         {
             price += aPrice;
+            productCount++;
         }
 
         public int NumberOfProducts()
         {
-            return 1;
+            return productCount;
         }
     }
 }

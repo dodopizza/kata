@@ -42,6 +42,18 @@ namespace ParallelAndNarrowChange.Tests
         }
 
         [Test]
+        public void knows_the_number_of_items_with_two_products()
+        {
+            var shoppingCart = new ShoppingCart();
+            shoppingCart.Add(10);
+            shoppingCart.Add(100);
+
+            var numberOfProducts = shoppingCart.NumberOfProducts();
+
+            numberOfProducts.Should().Be(2);
+        }
+
+        [Test]
         public void may_offer_discounts_when_there_at_least_one_expensive_product()
         {
             var shoppingCart = new ShoppingCart();
