@@ -1,3 +1,4 @@
+using System;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -15,5 +16,17 @@ namespace Domain.Tests
 
             source.Received(1).GetChar();
         }
+
+        [Test]
+        public void WhenCopy_ThenCallSetCharOnes()
+        {
+            var destination = Substitute.For<IDestination>();
+            var copier = new Copier(Substitute.For<ISource>(), destination);
+
+            copier.Copy();
+
+            destination.Received(1).SetChar(Arg.Any<char>());
+        }
+        
     }
 }
