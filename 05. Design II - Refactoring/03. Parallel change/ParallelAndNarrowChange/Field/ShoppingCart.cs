@@ -16,7 +16,7 @@
 
         public void Add(int aPrice)
         {
-            price = aPrice;
+            price += aPrice;
         }
 
         public int NumberOfProducts()

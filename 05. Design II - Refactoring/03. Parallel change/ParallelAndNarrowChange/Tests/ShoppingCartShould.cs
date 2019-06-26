@@ -19,6 +19,18 @@ namespace ParallelAndNarrowChange.Tests
         }
 
         [Test]
+        public void calculate_the_final_price_with_two_products()
+        {
+            var shoppingCart = new ShoppingCart();
+            shoppingCart.Add(10);
+            shoppingCart.Add(100);
+
+            var calculateTotalPrice = shoppingCart.CalculateTotalPrice();
+
+            calculateTotalPrice.Should().Be(110);
+        }
+
+        [Test]
         public void knows_the_number_of_items()
         {
             var shoppingCart = new ShoppingCart();
