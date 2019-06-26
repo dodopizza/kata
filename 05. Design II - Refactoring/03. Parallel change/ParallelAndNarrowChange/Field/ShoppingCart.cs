@@ -2,28 +2,28 @@
 {
     public class ShoppingCart
     {
-        private decimal price;
-        private int productCount;
+        private decimal _totalPrice;
+        private int _productCount;
 
         public decimal CalculateTotalPrice()
         {
-            return price;
+            return _totalPrice;
         }
 
         public bool HasDiscount()
         {
-            return price > 100;
+            return _totalPrice > 100;
         }
 
-        public void Add(int aPrice)
+        public void Add(int productPrice)
         {
-            price += aPrice;
-            productCount++;
+            _totalPrice += productPrice;
+            _productCount++;
         }
 
         public int NumberOfProducts()
         {
-            return productCount;
+            return _productCount;
         }
     }
 }
