@@ -1,4 +1,3 @@
-using System;
 using Domain;
 using NUnit.Framework;
 
@@ -17,16 +16,5 @@ namespace Tests
             
             Assert.True(errorWasRaised);
         }
-    }
-
-    public class Instrument : IInstrument
-    {
-        public void Execute(string task)
-        {
-            Error.Invoke(this, EventArgs.Empty);
-        }
-
-        public event EventHandler Finished;
-        public event EventHandler Error;
     }
 }
