@@ -8,7 +8,7 @@ namespace UnitTests
 		[Fact]
 		public void WhenCopy_ShouldGetCharFromSource()
 		{
-			var source = new SpySource();
+			var source = new OnlyCharSpySource();
 			var destination = new DummyDestination();
 			var copier = new Copier(source, destination);
 
@@ -20,7 +20,7 @@ namespace UnitTests
 		[Fact]
 		public void WhenCopy_ShouldGetCharFromSourceUntilNewLine()
 		{
-			var source = new SpySource("a\n");
+			var source = new FixedStringSpySource("a\n");
 			var destination = new DummyDestination();
 			var copier = new Copier(source, destination);
 
