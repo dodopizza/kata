@@ -19,20 +19,22 @@ namespace ParallelAndNarrowChange.Tests
         public void calculate_the_final_price()
         {
             var shoppingCart = cart = new ShoppingCart();
-
             shoppingCart.Add(10);
-
-            shoppingCart.CalculateTotalPrice().Should().Be(10);
+            
+            var totalPrice = shoppingCart.CalculateTotalPrice();
+            
+            totalPrice.Should().Be(10);
         }
 
         [Test]
         public void knows_the_number_of_items()
         {
             var shoppingCart = cart = new ShoppingCart();
-            
             shoppingCart.Add(10);
 
-            shoppingCart.NumberOfProducts().Should().Be(1);
+            var numberOfProducts = shoppingCart.NumberOfProducts();
+            
+            numberOfProducts.Should().Be(1);
         }
 
         [Test]
