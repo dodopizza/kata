@@ -14,6 +14,7 @@
 		public void Copy()
 		{
 			_destination.SetChar(_source.GetChar());
+			_source.GetChar();
 		}
 	}
 }

@@ -17,6 +17,18 @@ namespace UnitTests
 			source.VerifyGetChar();
 		}
 
+		[Fact]
+		public void WhenCopy_ShouldGetCharFromSourceUntilNewLine()
+		{
+			var source = new SpySource("a\n");
+			var destination = new DummyDestination();
+			var copier = new Copier(source, destination);
+
+			copier.Copy();
+
+			source.ShouldBeCalledTimes(2);
+		}
+
 		[Theory]
 		[InlineData('a')]
 		[InlineData('b')]
