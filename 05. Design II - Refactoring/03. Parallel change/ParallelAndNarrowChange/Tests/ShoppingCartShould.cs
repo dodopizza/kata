@@ -18,9 +18,11 @@ namespace ParallelAndNarrowChange.Tests
         [Test]
         public void calculate_the_final_price()
         {
-            cart.Add(10);
+            var shoppingCart = cart = new ShoppingCart();
 
-            cart.CalculateTotalPrice().Should().Be(10);
+            shoppingCart.Add(10);
+
+            shoppingCart.CalculateTotalPrice().Should().Be(10);
         }
 
         [Test]
