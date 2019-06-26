@@ -16,9 +16,9 @@ namespace Tests
                 .Returns("play");
             var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object);
             
-            var currentTask = instrumentProsessor.GetCurrentTask();
+            instrumentProsessor.Process();
             
-            Assert.AreEqual("play", currentTask);
+            Assert.AreEqual("play", instrumentProsessor.GetCurrentTask());
         }
 
         [Test]
@@ -30,9 +30,9 @@ namespace Tests
                 .Returns("mute");
             var instrumentProsessor = new InstrumentProcessor(taskDispatcher.Object);
             
-            var currentTask = instrumentProsessor.GetCurrentTask();
+            instrumentProsessor.Process();
             
-            Assert.AreEqual("mute", currentTask);
+            Assert.AreEqual("mute", instrumentProsessor.GetCurrentTask());
         }
     }
 }
