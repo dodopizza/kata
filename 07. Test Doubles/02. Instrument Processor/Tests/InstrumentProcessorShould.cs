@@ -71,12 +71,30 @@ namespace Tests
                 .Setup(_ => _.GetTask())
                 .Returns("play");
             var instrument = new Mock<IInstrument>();
-            instrument.Setup(_ => _.Execute("play")).Raises(_ => _.Finished += null, EventArgs.Empty);
+            instrument
+                .Setup(_ => _.Execute("play"))
+                .Raises(_ => _.Finished += null, EventArgs.Empty);
             var instrumentProcessor = new InstrumentProcessor(taskDispatcher.Object, instrument.Object);
 
             instrumentProcessor.Process();
             
             taskDispatcher.Verify(_ => _.FinishedTask("play"), Times.Once);            
+        }
+
+        [Test]
+        public void LogTaskExecutionErrorToConsole()
+        {
+            var taskDispatcher = Mock.Of<ITaskDispatcher>();
+            var instrument = new Mock<IInstrument>();
+            instrument
+                .Setup(_ => _.Execute(It.IsAny<string>()))
+                .Raises(_ => _.Error += null, EventArgs.Empty);
+            var console = new ConsoleSpy();
+            var instrumentProcessor = new InstrumentProcessor(taskDispatcher, instrument.Object, console);
+            
+            instrumentProcessor.Process();
+            
+            Assert.AreEqual("Error occured", console.LastMessage);
         }
 
         private static ITaskDispatcher CreateTaskDispatcher(string task)

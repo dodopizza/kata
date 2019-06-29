@@ -6,7 +6,7 @@ namespace Domain
     {
         public void Execute(string task)
         {
-            Error.Invoke(this, EventArgs.Empty);
+            if (task is null) throw new NullReferenceException();
         }
 
         public event EventHandler Finished;
