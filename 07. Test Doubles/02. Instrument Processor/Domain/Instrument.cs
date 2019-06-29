@@ -9,7 +9,7 @@ namespace Domain
             if (task is null) throw new NullReferenceException();
         }
 
-        public event EventHandler Finished;
+        public event EventHandler<TaskFinishedEventHandlerArgs> Finished;
         public event EventHandler Error;
     }
 }

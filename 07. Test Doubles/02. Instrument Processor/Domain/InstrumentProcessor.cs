@@ -7,7 +7,6 @@ namespace Domain
         private readonly ITaskDispatcher taskDispatcher;
         private readonly IInstrument instrument;
         private IConsole console;
-        private string currentTask;
 
         public InstrumentProcessor(ITaskDispatcher taskDispatcher, IInstrument instrument)
         {
@@ -24,20 +23,15 @@ namespace Domain
             this.console = console;
         }
 
-        public string GetCurrentTask()
-        {
-            return currentTask;
-        }
-
         public void Process()
         {
-            currentTask = taskDispatcher.GetTask();
+            var currentTask = taskDispatcher.GetTask();
             instrument.Execute(currentTask);
         }
 
-        private void OnInstrumentFinished(object sender, EventArgs e)
+        private void OnInstrumentFinished(object sender, TaskFinishedEventHandlerArgs e)
         {
-            taskDispatcher.FinishedTask(currentTask);
+            taskDispatcher.FinishedTask(e.Task);
         }
 
         private void OnInstrumentError(object sender, EventArgs e)

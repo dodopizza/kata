@@ -8,30 +8,6 @@ namespace Tests
     public class InstrumentProcessorShould
     {
         [Test]
-        public void GetPlayTaskFromTaskDispatcher()
-        {
-            var taskDispatcher = CreateTaskDispatcher("play");
-            var instrument = Mock.Of<IInstrument>();
-            var instrumentProcessor = new InstrumentProcessor(taskDispatcher, instrument);
-
-            instrumentProcessor.Process();
-
-            Assert.AreEqual("play", instrumentProcessor.GetCurrentTask());
-        }
-
-        [Test]
-        public void GetMuteTaskFromTaskDispatcher()
-        {
-            var taskDispatcher = CreateTaskDispatcher("mute");
-            var instrument = Mock.Of<IInstrument>();
-            var instrumentProcessor = new InstrumentProcessor(taskDispatcher, instrument);
-
-            instrumentProcessor.Process();
-
-            Assert.AreEqual("mute", instrumentProcessor.GetCurrentTask());
-        }
-
-        [Test]
         public void ExecuteTaskOnInstrument()
         {
             var taskDispatcher = CreateTaskDispatcher("mute");
@@ -73,7 +49,7 @@ namespace Tests
             var instrument = new Mock<IInstrument>();
             instrument
                 .Setup(_ => _.Execute("play"))
-                .Raises(_ => _.Finished += null, EventArgs.Empty);
+                .Raises(_ => _.Finished += null, instrument.Object, new TaskFinishedEventHandlerArgs {Task = "play"});
             var instrumentProcessor = new InstrumentProcessor(taskDispatcher.Object, instrument.Object);
 
             instrumentProcessor.Process();
