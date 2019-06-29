@@ -6,16 +6,22 @@ namespace Domain
     {
         private readonly ITaskDispatcher taskDispatcher;
         private readonly IInstrument instrument;
-        private readonly IConsole console;
+        private IConsole console;
         private string currentTask;
 
-        public InstrumentProcessor(ITaskDispatcher taskDispatcher, IInstrument instrument, IConsole console = null)
+        public InstrumentProcessor(ITaskDispatcher taskDispatcher, IInstrument instrument)
         {
             this.taskDispatcher = taskDispatcher;
             this.instrument = instrument;
-            this.console = console ?? new Console();
+            console = new Console();
+            
             this.instrument.Finished += OnInstrumentFinished;
             this.instrument.Error += OnInstrumentError;
+        }
+
+        public void ReplaceConsole(IConsole console)
+        {
+            this.console = console;
         }
 
         public string GetCurrentTask()

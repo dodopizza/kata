@@ -89,8 +89,9 @@ namespace Tests
             instrument
                 .Setup(_ => _.Execute(It.IsAny<string>()))
                 .Raises(_ => _.Error += null, EventArgs.Empty);
+            var instrumentProcessor = new InstrumentProcessor(taskDispatcher, instrument.Object);
             var console = new ConsoleSpy();
-            var instrumentProcessor = new InstrumentProcessor(taskDispatcher, instrument.Object, console);
+            instrumentProcessor.ReplaceConsole(console);
             
             instrumentProcessor.Process();
             
