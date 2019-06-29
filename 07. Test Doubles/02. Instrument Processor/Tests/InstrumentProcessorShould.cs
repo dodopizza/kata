@@ -63,6 +63,22 @@ namespace Tests
             Assert.Throws<NullReferenceException>(() => instrumentProcessor.Process());
         }
 
+        [Test]
+        public void CallDispatchersFinishedTaskWhenInstrumentFinishedTheTask()
+        {
+            var taskDispatcher = new Mock<ITaskDispatcher>();
+            taskDispatcher
+                .Setup(_ => _.GetTask())
+                .Returns("play");
+            var instrument = new Mock<IInstrument>();
+            instrument.Setup(_ => _.Execute("play")).Raises(_ => _.Finished += null, EventArgs.Empty);
+            var instrumentProcessor = new InstrumentProcessor(taskDispatcher.Object, instrument.Object);
+
+            instrumentProcessor.Process();
+            
+            taskDispatcher.Verify(_ => _.FinishedTask("play"), Times.Once);            
+        }
+
         private static ITaskDispatcher CreateTaskDispatcher(string task)
         {
             var taskDispatcher = new Mock<ITaskDispatcher>();

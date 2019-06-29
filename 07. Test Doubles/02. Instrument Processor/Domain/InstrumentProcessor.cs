@@ -1,26 +1,34 @@
+using System;
+
 namespace Domain
 {
     public class InstrumentProcessor
     {
-        private readonly ITaskDispatcher _taskDispatcher;
-        private readonly IInstrument _instrument;
-        private string _currentTask;
+        private readonly ITaskDispatcher taskDispatcher;
+        private readonly IInstrument instrument;
+        private string currentTask;
 
         public InstrumentProcessor(ITaskDispatcher taskDispatcher, IInstrument instrument)
         {
-            _taskDispatcher = taskDispatcher;
-            _instrument = instrument;
+            this.taskDispatcher = taskDispatcher;
+            this.instrument = instrument;
+            this.instrument.Finished += OnInstrumentFinished;
         }
 
         public string GetCurrentTask()
         {
-            return _currentTask;
+            return currentTask;
         }
 
         public void Process()
         {
-            _currentTask = _taskDispatcher.GetTask();
-            _instrument.Execute(_currentTask);
+            currentTask = taskDispatcher.GetTask();
+            instrument.Execute(currentTask);
+        }
+
+        private void OnInstrumentFinished(object sender, EventArgs e)
+        {
+            taskDispatcher.FinishedTask(currentTask);
         }
     }
 }
