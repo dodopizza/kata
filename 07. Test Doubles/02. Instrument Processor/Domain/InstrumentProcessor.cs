@@ -25,8 +25,7 @@ namespace Domain
 
         public void Process()
         {
-            var currentTask = taskDispatcher.GetTask();
-            instrument.Execute(currentTask);
+            instrument.Execute(taskDispatcher.GetTask());
         }
 
         private void OnInstrumentFinished(object sender, TaskFinishedEventHandlerArgs e)
