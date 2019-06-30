@@ -60,10 +60,10 @@ namespace Tests
         [Test]
         public void LogTaskExecutionErrorToConsole()
         {
-            var taskDispatcher = Mock.Of<ITaskDispatcher>();
+            var taskDispatcher = CreateTaskDispatcher("error");
             var instrument = new Mock<IInstrument>();
             instrument
-                .Setup(_ => _.Execute(It.IsAny<string>()))
+                .Setup(_ => _.Execute("error"))
                 .Raises(_ => _.Error += null, EventArgs.Empty);
             var instrumentProcessor = new InstrumentProcessor(taskDispatcher, instrument.Object);
             var console = new ConsoleSpy();
