@@ -1,6 +1,6 @@
 namespace Domain
 {
-    public class InstrumentProcessor : IInstrumentProcessor
+    public sealed class InstrumentProcessor : IInstrumentProcessor
     {
         private readonly IInstrument _instrument;
         private readonly ITaskDispatcher _taskDispatcher;
