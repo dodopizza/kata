@@ -32,7 +32,6 @@ namespace Domain.Tests
             instrument.Received(1).Execute(task);
         }
         
-        // instrument test
         [Test]
         public void WhenProcessWithNullTask_ThenThrowArgumentNullException()
         {
