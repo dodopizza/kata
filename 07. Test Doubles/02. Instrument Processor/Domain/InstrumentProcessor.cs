@@ -1,3 +1,5 @@
+using System;
+
 namespace Domain
 {
     public sealed class InstrumentProcessor : IInstrumentProcessor
@@ -7,8 +9,8 @@ namespace Domain
 
         public InstrumentProcessor(IInstrument instrument, ITaskDispatcher taskDispatcher, IConsole console = null)
         {
-            _instrument = instrument;
-            _taskDispatcher = taskDispatcher;
+            _instrument = instrument ?? throw new ArgumentNullException(nameof(instrument));
+            _taskDispatcher = taskDispatcher ?? throw new ArgumentNullException(nameof(taskDispatcher));
 
             _instrument.Finished += (s, e) =>
             {
