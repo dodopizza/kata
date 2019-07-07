@@ -1,8 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using NSubstitute;
-using NSubstitute.ExceptionExtensions;
-using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace Domain.Tests
@@ -123,6 +121,20 @@ namespace Domain.Tests
             
             SpinWait();
             console.Received(1).Write("Error occurred");
+        }
+
+        [Test]
+        public void WhenInstrumentNull_ThenThrowArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => new InstrumentProcessor(null, null));
+        }
+
+        [Test]
+        public void WhenTaskDispatcherNull_ThenThrowArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => new InstrumentProcessor(
+                Substitute.For<IInstrument>(), 
+                null));
         }
 
         private void SpinWait(Func<int> getReceivedEventsCount, int expectedReceivedEventsCount)
