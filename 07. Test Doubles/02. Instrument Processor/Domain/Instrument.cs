@@ -18,6 +18,11 @@ namespace Domain
         private async Task ExecuteAsync(string task)
         {
             await Task.Delay(1).ConfigureAwait(false);
+
+            if (task == "error")
+            {
+                Error?.Invoke(this, EventArgs.Empty);
+            }
             
             Finished?.Invoke(this, EventArgs.Empty);
         }

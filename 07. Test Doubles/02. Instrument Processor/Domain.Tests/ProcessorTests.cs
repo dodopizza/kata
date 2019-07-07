@@ -77,6 +77,23 @@ namespace Domain.Tests
             Assert.AreEqual(expectedReceivedEventsCount, receivedEventsCount);
         }
 
+        [Test]
+        public void WhenInstrumentDetectError_ThenErrorEventFired()
+        {
+            var receivedEventsCount = 0;
+            var instrument = new Instrument();
+            instrument.Error += (s, e) =>
+            {
+                receivedEventsCount++;
+            };
+            
+            instrument.Execute("error");
+            var expectedReceivedEventsCount = 1;
+            SpinWait(() => receivedEventsCount, expectedReceivedEventsCount);
+            
+            Assert.AreEqual(expectedReceivedEventsCount, receivedEventsCount);
+        }
+
         private void SpinWait(Func<int> getReceivedEventsCount, int expectedReceivedEventsCount)
         {
             var attemptsLimit = 3;
@@ -85,7 +102,8 @@ namespace Domain.Tests
             while (getReceivedEventsCount() != expectedReceivedEventsCount &&
                    attempt <= attemptsLimit)
             {
-                Task.Delay(1000).Wait();    
+                Task.Delay(1000).Wait();
+                attempt++;
             }
         }
     }
