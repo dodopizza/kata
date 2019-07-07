@@ -32,5 +32,16 @@ namespace Domain.Tests
             
             instrument.Received(1).Execute(task);
         }
+        
+        [Test]
+        public void WhenProcessWithNullTask_ThenThrowArgumentNullException()
+        {
+            var taskDispatcher = Substitute.For<ITaskDispatcher>();
+            taskDispatcher.GetTask().Returns((string) null);
+            var instrument = new Instrument();
+            var instrumentProcessor = new InstrumentProcessor(instrument, taskDispatcher);
+
+            Assert.Throws<ArgumentNullException>(() => instrumentProcessor.Process());
+        }
     }
 }
