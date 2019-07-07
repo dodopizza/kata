@@ -5,7 +5,7 @@ namespace Domain
         private readonly IInstrument _instrument;
         private readonly ITaskDispatcher _taskDispatcher;
 
-        public InstrumentProcessor(IInstrument instrument, ITaskDispatcher taskDispatcher)
+        public InstrumentProcessor(IInstrument instrument, ITaskDispatcher taskDispatcher, IConsole console = null)
         {
             _instrument = instrument;
             _taskDispatcher = taskDispatcher;
@@ -14,6 +14,11 @@ namespace Domain
             {
                 taskDispatcher.FinishedTask(e.Task);
             };
+
+            if (console != null)
+            {
+                _instrument.Error += (s, e) => { console.Write("Error occurred"); };
+            }
         }
 
         public void Process()

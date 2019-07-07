@@ -5,8 +5,6 @@ namespace Domain
 {
     public sealed class Instrument : IInstrument
     {
-        public string CurrentTask { get; }
-        
         public void Execute(string task)
         {
             if (task == null)
