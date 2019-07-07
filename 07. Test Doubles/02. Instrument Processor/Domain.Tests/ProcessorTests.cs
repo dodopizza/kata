@@ -1,4 +1,7 @@
+using System;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace Domain.Tests
@@ -14,6 +17,20 @@ namespace Domain.Tests
             instrumentProcessor.Process();
 
             taskDispatcher.Received(1).GetTask();
+        }
+
+        [Test]
+        public void WhenProcess_ThenTaskPassedToInstrument()
+        {
+            var task = "task1";
+            var taskDispatcher = Substitute.For<ITaskDispatcher>();
+            taskDispatcher.GetTask().Returns(task);
+            var instrument = Substitute.For<IInstrument>();
+            var instrumentProcessor = new InstrumentProcessor(instrument, taskDispatcher);
+
+            instrumentProcessor.Process();
+            
+            instrument.Received(1).Execute(task);
         }
     }
 }
