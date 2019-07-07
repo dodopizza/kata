@@ -94,13 +94,40 @@ namespace Domain.Tests
             Assert.AreEqual(expectedReceivedEventsCount, receivedEventsCount);
         }
 
+        [Test]
+        public void WhenInstrumentFinishTask_ThenProcessorCallsDispatcher()
+        {
+            var task = "task1";
+            var taskDispatcher = Substitute.For<ITaskDispatcher>();
+            taskDispatcher.GetTask().Returns(task);
+            var instrument = new Instrument();
+            var instrumentProcessor = new InstrumentProcessor(instrument, taskDispatcher);
+            
+            instrumentProcessor.Process();
+            
+            SpinWait();
+            taskDispatcher.Received(1).FinishedTask(task);
+        }
+
         private void SpinWait(Func<int> getReceivedEventsCount, int expectedReceivedEventsCount)
         {
             var attemptsLimit = 3;
             var attempt = 0;
 
-            while (getReceivedEventsCount() != expectedReceivedEventsCount &&
+            while (getReceivedEventsCount() != expectedReceivedEventsCount && 
                    attempt <= attemptsLimit)
+            {
+                Task.Delay(1000).Wait();
+                attempt++;
+            }
+        }
+
+        private void SpinWait()
+        {
+            var attemptsLimit = 3;
+            var attempt = 0;
+
+            while (attempt <= attemptsLimit)
             {
                 Task.Delay(1000).Wait();
                 attempt++;

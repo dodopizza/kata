@@ -5,6 +5,8 @@ namespace Domain
 {
     public sealed class Instrument : IInstrument
     {
+        public string CurrentTask { get; }
+        
         public void Execute(string task)
         {
             if (task == null)
@@ -24,10 +26,10 @@ namespace Domain
                 Error?.Invoke(this, EventArgs.Empty);
             }
             
-            Finished?.Invoke(this, EventArgs.Empty);
+            Finished?.Invoke(this, new TaskFinishedEventArgs(task));
         }
 
-        public event EventHandler Finished;
+        public event EventHandler<TaskFinishedEventArgs> Finished;
         public event EventHandler Error;
     }
 }
