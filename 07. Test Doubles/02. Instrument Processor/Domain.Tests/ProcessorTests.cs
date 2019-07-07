@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReceivedExtensions;
@@ -33,6 +34,7 @@ namespace Domain.Tests
             instrument.Received(1).Execute(task);
         }
         
+        // instrument test
         [Test]
         public void WhenProcessWithNullTask_ThenThrowArgumentNullException()
         {
@@ -42,6 +44,49 @@ namespace Domain.Tests
             var instrumentProcessor = new InstrumentProcessor(instrument, taskDispatcher);
 
             Assert.Throws<ArgumentNullException>(() => instrumentProcessor.Process());
+        }
+
+        [Test]
+        public void WhenInstrumentThrowException_ThenProcessThrowThisException()
+        {
+            var exMessage = "oops!";
+            var instrument = Substitute.For<IInstrument>();
+            instrument
+                .When(x => x.Execute(Arg.Any<string>()))
+                .Do(x => throw new InvalidOperationException(exMessage));
+            var instrumentProcessor = new InstrumentProcessor(instrument, Substitute.For<ITaskDispatcher>());
+
+            Assert.Throws<InvalidOperationException>(() => instrumentProcessor.Process(), exMessage);
+        }
+
+        [Test]
+        public void WhenInstrumentFinishTask_ThenFinishedEventFired()
+        {
+            var receivedEventsCount = 0;
+            var instrument = new Instrument();
+            instrument.Finished += (s, e) =>
+            {
+                receivedEventsCount++;
+            };
+            
+            instrument.Execute("task1");
+            
+            var expectedReceivedEventsCount = 1;
+            SpinWait(() => receivedEventsCount, expectedReceivedEventsCount);
+            
+            Assert.AreEqual(expectedReceivedEventsCount, receivedEventsCount);
+        }
+
+        private void SpinWait(Func<int> getReceivedEventsCount, int expectedReceivedEventsCount)
+        {
+            var attemptsLimit = 3;
+            var attempt = 0;
+
+            while (getReceivedEventsCount() != expectedReceivedEventsCount &&
+                   attempt <= attemptsLimit)
+            {
+                Task.Delay(1000).Wait();    
+            }
         }
     }
 }
