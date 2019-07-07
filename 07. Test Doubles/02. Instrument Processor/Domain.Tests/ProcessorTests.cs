@@ -109,6 +109,22 @@ namespace Domain.Tests
             taskDispatcher.Received(1).FinishedTask(task);
         }
 
+        [Test]
+        public void WhenInstrumentFiresError_ThenProcessorLogToConsole()
+        {
+            var task = "error";
+            var taskDispatcher = Substitute.For<ITaskDispatcher>();
+            taskDispatcher.GetTask().Returns(task);
+            var instrument = new Instrument();
+            var console = Substitute.For<IConsole>();
+            var instrumentProcessor = new InstrumentProcessor(instrument, taskDispatcher, console);
+            
+            instrumentProcessor.Process();
+            
+            SpinWait();
+            console.Received(1).Write("Error occurred");
+        }
+
         private void SpinWait(Func<int> getReceivedEventsCount, int expectedReceivedEventsCount)
         {
             var attemptsLimit = 3;
