@@ -16,7 +16,7 @@ namespace App
         }
 
         [Test]
-        public void WhenNonSpecificName_ThenQualityAndSellInReduceOnOne()
+        public void WhenNonSpecificName_AndQualityAndSellMoreThen0_ThenQualityAndSellInReduceOn1()
         {
             var item = new Item
             {
@@ -30,6 +30,27 @@ namespace App
             gildedRose.UpdateQuality();
 
             var expected = new Item {Name = "name", Quality = 0, SellIn = 0};
+            var actual = item;
+
+            Assert.AreEqual(expected, actual);
+        }
+        
+        //Sulfuras, Hand of Ragnaros
+        [Test]
+        public void WhenNameIs_Sulfuras_Hand_of_Ragnaros_AndQualityAndSellMoreThen0_ThenQualityAndSellShouldBeSame()
+        {
+            var item = new Item
+            {
+                Name = "Sulfuras, Hand of Ragnaros",
+                Quality = 1,
+                SellIn = 1
+            };
+            var items = new[] {item};
+            var gildedRose = new GildedRose(items);
+            
+            gildedRose.UpdateQuality();
+
+            var expected = new Item {Name = "Sulfuras, Hand of Ragnaros", Quality = 1, SellIn = 1};
             var actual = item;
 
             Assert.AreEqual(expected, actual);
