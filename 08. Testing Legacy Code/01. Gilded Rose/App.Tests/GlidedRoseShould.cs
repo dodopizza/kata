@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using App.Tests.DSL;
 using FluentAssertions;
 using Xunit;
 
@@ -10,61 +11,44 @@ namespace App.Tests
 		[Fact]
 		public void Decrement_potato_sell_in_to_1()
 		{
-			var products = new List<Item>
-			{
-				new Item
-				{
-					Name = "Potato",
-					Quality = 5,
-					SellIn = 5,
-				}
-			};
-			var gildedRose = new GildedRose(products);
+			var items = Create.Items().WithQuality(5).WithSellIn(5).Please();
+			var gildedRose = Create.GildedRose()
+				.WithItems(items)
+				.Please();
+
 
 			gildedRose.UpdateQuality();
 
-			var potato = products.Should().ContainSingle().Which;
-			potato.SellIn.Should().Be(4);
+			var item = items.Should().ContainSingle().Which;
+			item.SellIn.Should().Be(4);
 		}
 
 		[Fact]
 		public void Decrement_potato_quality_to_1()
 		{
-			var products = new List<Item>
-			{
-				new Item
-				{
-					Name = "Potato",
-					Quality = 5,
-					SellIn = 5,
-				}
-			};
-			var gildedRose = new GildedRose(products);
+			var items = Create.Items().WithQuality(5).WithSellIn(5).Please();
+			var gildedRose = Create.GildedRose()
+				.WithItems(items)
+				.Please();
 
 			gildedRose.UpdateQuality();
 
-			var potato = products.Should().ContainSingle().Which;
-			potato.Quality.Should().Be(4);
+			var item = items.Should().ContainSingle().Which;
+			item.Quality.Should().Be(4);
 		}
 
 		[Fact]
 		public void Decrement_potato_quality_to_2_WhenSaleByDatePast()
 		{
-			var products = new List<Item>
-			{
-				new Item
-				{
-					Name = "Potato",
-					Quality = 5,
-					SellIn = 0,
-				}
-			};
-			var gildedRose = new GildedRose(products);
+			var items = Create.Items().WithQuality(5).WithSellIn(0).Please();
+			var gildedRose = Create.GildedRose()
+				.WithItems(items)
+				.Please();
 
 			gildedRose.UpdateQuality();
 
-			var potato = products.Should().ContainSingle().Which;
-			potato.Quality.Should().Be(3);
+			var item = items.Should().ContainSingle().Which;
+			item.Quality.Should().Be(3);
 		}
 	}
 }
