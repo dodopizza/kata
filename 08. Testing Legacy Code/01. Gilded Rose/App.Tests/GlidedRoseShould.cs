@@ -46,5 +46,25 @@ namespace App.Tests
 			var potato = products.Should().ContainSingle().Which;
 			potato.Quality.Should().Be(4);
 		}
+
+		[Fact]
+		public void Decrement_potato_quality_to_2_WhenSaleByDatePast()
+		{
+			var products = new List<Item>
+			{
+				new Item
+				{
+					Name = "Potato",
+					Quality = 5,
+					SellIn = 0,
+				}
+			};
+			var gildedRose = new GildedRose(products);
+
+			gildedRose.UpdateQuality();
+
+			var potato = products.Should().ContainSingle().Which;
+			potato.Quality.Should().Be(3);
+		}
 	}
 }
