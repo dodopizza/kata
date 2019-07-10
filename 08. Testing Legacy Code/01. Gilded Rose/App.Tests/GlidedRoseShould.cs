@@ -49,5 +49,24 @@ namespace App.Tests
 			item.Quality.Should().Be(expectedQuality);
 			item.SellIn.Should().Be(expectedSellIn);
 		}
+		[Theory]
+		[InlineData(5, 5, 5, 5)]
+		public void IncrementQualityAndDecrementSellIn_ForSulfuras(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
+		{
+			var items = Create.Items()
+				.WithName("Sulfuras, Hand of Ragnaros")
+				.WithQuality(startingQuality)
+				.WithSellIn(staringSellIn)
+				.Please();
+			var gildedRose = Create.GildedRose()
+				.WithItems(items)
+				.Please();
+
+			gildedRose.UpdateQuality();
+
+			var item = items.Should().ContainSingle().Which;
+			item.Quality.Should().Be(expectedQuality);
+			item.SellIn.Should().Be(expectedSellIn);
+		}
 	}
 }
