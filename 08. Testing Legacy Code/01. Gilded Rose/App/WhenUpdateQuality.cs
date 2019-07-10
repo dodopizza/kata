@@ -27,5 +27,16 @@ namespace App
 
             Assert.AreEqual(198, items.Single().Quality);
         }
+
+        [Test]
+        public void QualityShouldNotBeNegative()
+        {
+            var items = Create.RegularItem(1, 0);
+            var app = new GildedRose(items);
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(0, items.Single().Quality);
+        }
     }
 }
