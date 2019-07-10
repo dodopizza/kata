@@ -20,7 +20,7 @@ namespace App
         {
             var item = new Item
             {
-                Name = "name",
+                Name = "default",
                 Quality = 1,
                 SellIn = 1
             };
@@ -29,9 +29,8 @@ namespace App
             
             gildedRose.UpdateQuality();
 
-            var expected = new Item {Name = "name", Quality = 0, SellIn = 0};
+            var expected = new Item {Name = "default", Quality = 0, SellIn = 0};
             var actual = item;
-
             Assert.AreEqual(expected, actual);
         }
         
@@ -52,7 +51,25 @@ namespace App
 
             var expected = new Item {Name = "Sulfuras, Hand of Ragnaros", Quality = 1, SellIn = 1};
             var actual = item;
+            Assert.AreEqual(expected, actual);
+        }
 
+        [Test]
+        public void WhenNonSpecificName_AndQualityIs0AndSellMoreThan0_ThenQualityShouldBeSameAndSellInReduceOn1()
+        {
+            var item = new Item
+            {
+                Name = "default",
+                Quality = 0,
+                SellIn = 1
+            };
+            var items = new[] {item};
+            var gildedRose = new GildedRose(items);
+            
+            gildedRose.UpdateQuality();
+            
+            var expected = new Item {Name = "default", Quality = 0, SellIn = 0};
+            var actual = item;
             Assert.AreEqual(expected, actual);
         }
     }
