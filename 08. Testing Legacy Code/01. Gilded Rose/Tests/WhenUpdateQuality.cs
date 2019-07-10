@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using App;
 using NUnit.Framework;
 
-namespace App
+namespace Tests
 {
     [TestFixture]
     public class WhenUpdateQuality
