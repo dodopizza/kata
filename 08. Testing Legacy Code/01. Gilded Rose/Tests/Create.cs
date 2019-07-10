@@ -14,9 +14,15 @@ namespace App
             return Items("Any", sellIn, quality);
         }
         
+        public static IList<Item> Sulfuras(int sellIn, int quality)
+        {
+            return Items("Sulfuras, Hand of Ragnaros", sellIn, quality);
+        }
+        
         private static List<Item> Items(string name, int sellIn, int quality)
         {
             return new List<Item> {new Item {Name = name, SellIn = sellIn, Quality = quality}};
         }
+
     }
 }

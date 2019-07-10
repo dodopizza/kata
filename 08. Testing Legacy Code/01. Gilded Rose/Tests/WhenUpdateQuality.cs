@@ -61,5 +61,16 @@ namespace Tests
             
             Assert.AreEqual(50, items.Single().Quality);
         }
+
+        [Test]
+        public void ForSulfuras_QualityIs80()
+        {
+            var items = Create.Sulfuras(1, 80);
+            var app = new GildedRose(items);
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(80, items.Single().Quality);
+        }
     }
 }
