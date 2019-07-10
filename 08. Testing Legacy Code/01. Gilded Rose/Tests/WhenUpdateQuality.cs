@@ -107,6 +107,16 @@ namespace Tests
 
             Assert.AreEqual(33, items.Single().Quality);
         }
+        
+        [Test]
+        public void ForBackstagePass_QualityIsZero_IfSellInExpired()
+        {
+            var items = Create.BackstagePass(0, 30);
+
+            UpdateQuality(items);
+
+            Assert.AreEqual(0, items.Single().Quality);
+        }
 
         private static void UpdateQuality(IList<Item> items)
         {
