@@ -73,6 +73,7 @@ namespace App.Tests
 		[Theory]
 		[InlineData(1, 11, 2, 10)]
 		[InlineData(1, 10, 3, 9)]
+		[InlineData(1, 6, 3, 5)]
 		public void ChangeQualityAndSellIn_ForBackstagePasses(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
 		{
 			var items = Create.Items()
