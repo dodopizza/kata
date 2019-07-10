@@ -83,5 +83,16 @@ namespace Tests
             
             Assert.AreEqual(80, items.Single().Quality);
         }
+
+        [Test]
+        public void ForBackstagePass_QualityIncrease_IfSellInMoreThan10()
+        {
+            var items = Create.BackstagePass(11, 30);
+            var app = new GildedRose(items);
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(31, items.Single().Quality);
+        }
     }
 }

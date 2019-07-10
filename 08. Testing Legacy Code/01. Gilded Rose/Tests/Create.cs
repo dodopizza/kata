@@ -18,6 +18,10 @@ namespace App
         {
             return Items("Sulfuras, Hand of Ragnaros", sellIn, quality);
         }
+        public static IList<Item> BackstagePass(int sellIn, int quality)
+        {
+            return Items("Backstage passes to a TAFKAL80ETC concert", sellIn, quality);
+        }
         
         private static List<Item> Items(string name, int sellIn, int quality)
         {
