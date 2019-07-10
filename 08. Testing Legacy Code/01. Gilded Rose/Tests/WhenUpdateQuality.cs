@@ -50,5 +50,16 @@ namespace Tests
             
             Assert.AreEqual(11, items.Single().Quality);
         }
+
+        [Test]
+        public void ForAgedBrie_QualityCannotExceed50()
+        {
+            var items = Create.AgedBrie(1, 50);
+            var app = new GildedRose(items);
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(50, items.Single().Quality);
+        }
     }
 }
