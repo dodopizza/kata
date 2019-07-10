@@ -39,5 +39,16 @@ namespace Tests
             
             Assert.AreEqual(0, items.Single().Quality);
         }
+
+        [Test]
+        public void ForAgedBrie_QualityIncreses()
+        {
+            var items = Create.AgedBrie(1, 10);
+            var app = new GildedRose(items);
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(11, items.Single().Quality);
+        }
     }
 }
