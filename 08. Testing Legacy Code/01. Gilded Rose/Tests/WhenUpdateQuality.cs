@@ -85,7 +85,7 @@ namespace Tests
         }
 
         [Test]
-        public void ForBackstagePass_QualityIncrease_IfSellInMoreThan10()
+        public void ForBackstagePass_QualityIncreases_IfSellInMoreThan10()
         {
             var items = Create.BackstagePass(11, 30);
             var app = new GildedRose(items);
@@ -93,6 +93,17 @@ namespace Tests
             app.UpdateQuality();
             
             Assert.AreEqual(31, items.Single().Quality);
+        }
+
+        [Test]
+        public void ForBackstagePass_QualityIncreasesX2_IfSellInLessThan10()
+        {
+            var items = Create.BackstagePass(10, 30);
+            var app = new GildedRose(items);
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(32, items.Single().Quality);
         }
     }
 }
