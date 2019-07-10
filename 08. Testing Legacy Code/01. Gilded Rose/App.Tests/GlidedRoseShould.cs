@@ -8,25 +8,15 @@ namespace App.Tests
 {
 	public class GlidedRoseShould
 	{
-		[Fact]
-		public void Decrement_potato_sell_in_to_1()
+		[Theory]
+		[InlineData(5, 5, 4, 4)]
+		[InlineData(5, 0, 3, -1)]
+		public void DecrementQualityAndSellIn(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
 		{
-			var items = Create.Items().WithQuality(5).WithSellIn(5).Please();
-			var gildedRose = Create.GildedRose()
-				.WithItems(items)
+			var items = Create.Items()
+				.WithQuality(startingQuality)
+				.WithSellIn(staringSellIn)
 				.Please();
-
-
-			gildedRose.UpdateQuality();
-
-			var item = items.Should().ContainSingle().Which;
-			item.SellIn.Should().Be(4);
-		}
-
-		[Fact]
-		public void Decrement_potato_quality_to_1()
-		{
-			var items = Create.Items().WithQuality(5).WithSellIn(5).Please();
 			var gildedRose = Create.GildedRose()
 				.WithItems(items)
 				.Please();
@@ -34,21 +24,8 @@ namespace App.Tests
 			gildedRose.UpdateQuality();
 
 			var item = items.Should().ContainSingle().Which;
-			item.Quality.Should().Be(4);
-		}
-
-		[Fact]
-		public void Decrement_potato_quality_to_2_WhenSaleByDatePast()
-		{
-			var items = Create.Items().WithQuality(5).WithSellIn(0).Please();
-			var gildedRose = Create.GildedRose()
-				.WithItems(items)
-				.Please();
-
-			gildedRose.UpdateQuality();
-
-			var item = items.Should().ContainSingle().Which;
-			item.Quality.Should().Be(3);
+			item.Quality.Should().Be(expectedQuality);
+			item.SellIn.Should().Be(expectedSellIn);
 		}
 	}
 }
