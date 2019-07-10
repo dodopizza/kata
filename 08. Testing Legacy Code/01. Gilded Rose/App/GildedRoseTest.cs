@@ -16,7 +16,7 @@ namespace App
         }
 
         [Test]
-        public void WhenNonSpecificName_AndQualityAndSellMoreThen0_ThenQualityAndSellInReduceOn1()
+        public void WhenNonSpecificName_AndQualityAndSellIs1_ThenQualityAndSellInReduceOn1()
         {
             var item = new Item
             {
@@ -36,7 +36,7 @@ namespace App
         
         //Sulfuras, Hand of Ragnaros
         [Test]
-        public void WhenNameIs_Sulfuras_Hand_of_Ragnaros_AndQualityAndSellMoreThen0_ThenQualityAndSellShouldBeSame()
+        public void WhenNameIs_Sulfuras_Hand_of_Ragnaros_AndQualityAndSellIs1_ThenQualityAndSellShouldBeSame()
         {
             var item = new Item
             {
@@ -55,7 +55,7 @@ namespace App
         }
 
         [Test]
-        public void WhenNonSpecificName_AndQualityIs0AndSellMoreThan0_ThenQualityShouldBeSameAndSellInReduceOn1()
+        public void WhenNonSpecificName_AndQualityIs0AndSellIs1_ThenQualityShouldBeSameAndSellInReduceOn1()
         {
             var item = new Item
             {
@@ -71,6 +71,27 @@ namespace App
             var expected = new Item {Name = "default", Quality = 0, SellIn = 0};
             var actual = item;
             Assert.AreEqual(expected, actual);
+        }
+        
+        //Aged Brie
+        [Test]
+        public void WhenNameIs_Aged_Brie_AndQualityIs1AndSellIs1_ThenQualityShouldBe2AndSellInReduceOn1()
+        {
+            var item = new Item
+            {
+                Name = "Aged Brie",
+                Quality = 1,
+                SellIn = 1
+            };
+            var items = new[] {item};
+            var gildedRose = new GildedRose(items);
+            
+            gildedRose.UpdateQuality();
+            
+            var expected = new Item {Name = "Aged Brie", Quality = 2, SellIn = 0};
+            var actual = item;
+            Assert.AreEqual(expected, actual);
+            
         }
     }
 }
