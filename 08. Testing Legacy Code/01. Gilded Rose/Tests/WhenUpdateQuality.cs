@@ -72,5 +72,16 @@ namespace Tests
             
             Assert.AreEqual(80, items.Single().Quality);
         }
+
+        [Test]
+        public void ForExpiredSulfuras_QualityIs80()
+        {
+            var items = Create.Sulfuras(0, 80);
+            var app = new GildedRose(items);
+            
+            app.UpdateQuality();
+            
+            Assert.AreEqual(80, items.Single().Quality);
+        }
     }
 }
