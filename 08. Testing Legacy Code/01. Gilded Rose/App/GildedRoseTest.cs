@@ -111,5 +111,24 @@ namespace App
             var actual = item;
             Assert.AreEqual(expected, actual);
         }
+        
+        [Test]
+        public void WhenNameIs_Backstage_AndQualityIs1AndSellIs7_ThenQualityShouldBe3AndSellIs0()
+        {
+            var item = new Item
+            {
+                Name = "Backstage passes to a TAFKAL80ETC concert",
+                Quality = 1,
+                SellIn = 7
+            };
+            var items = new[] {item};
+            var gildedRose = new GildedRose(items);
+            
+            gildedRose.UpdateQuality();
+            
+            var expected = new Item {Name = "Backstage passes to a TAFKAL80ETC concert", Quality = 3, SellIn = 6};
+            var actual = item;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
