@@ -28,5 +28,25 @@ namespace App.Tests
 			item.Quality.Should().Be(expectedQuality);
 			item.SellIn.Should().Be(expectedSellIn);
 		}
+		
+		[Theory]
+		[InlineData(5, 5, 6, 4)]
+		public void IncrementQualityAndDecrementSellIn_ForAgedBrie(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
+		{
+			var items = Create.Items()
+				.WithName("Aged Brie")
+				.WithQuality(startingQuality)
+				.WithSellIn(staringSellIn)
+				.Please();
+			var gildedRose = Create.GildedRose()
+				.WithItems(items)
+				.Please();
+
+			gildedRose.UpdateQuality();
+
+			var item = items.Should().ContainSingle().Which;
+			item.Quality.Should().Be(expectedQuality);
+			item.SellIn.Should().Be(expectedSellIn);
+		}
 	}
 }

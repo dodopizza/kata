@@ -41,6 +41,12 @@ namespace App.Tests.DSL
 				_item
 			};
 		}
+
+		public ItemBuilder WithName(string name)
+		{
+			_item.Name = name;
+			return this;
+		}
 	}
 
 	public class GildedRoseBuilder
