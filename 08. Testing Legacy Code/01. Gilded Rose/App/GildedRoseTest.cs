@@ -91,7 +91,25 @@ namespace App
             var expected = new Item {Name = "Aged Brie", Quality = 2, SellIn = 0};
             var actual = item;
             Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void WhenNameIs_Backstage_AndQualityIs1AndSellIs1_ThenQualityShouldBe4AndSellIs0()
+        {
+            var item = new Item
+            {
+                Name = "Backstage passes to a TAFKAL80ETC concert",
+                Quality = 1,
+                SellIn = 1
+            };
+            var items = new[] {item};
+            var gildedRose = new GildedRose(items);
             
+            gildedRose.UpdateQuality();
+            
+            var expected = new Item {Name = "Backstage passes to a TAFKAL80ETC concert", Quality = 4, SellIn = 0};
+            var actual = item;
+            Assert.AreEqual(expected, actual);
         }
     }
 }
