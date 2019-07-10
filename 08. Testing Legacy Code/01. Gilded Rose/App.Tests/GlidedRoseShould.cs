@@ -31,6 +31,7 @@ namespace App.Tests
 		
 		[Theory]
 		[InlineData(5, 5, 6, 4)]
+		[InlineData(50, 5, 50, 4)]
 		public void IncrementQualityAndDecrementSellIn_ForAgedBrie(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
 		{
 			var items = Create.Items()
