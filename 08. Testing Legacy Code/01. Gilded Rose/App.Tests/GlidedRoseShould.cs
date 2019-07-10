@@ -49,9 +49,10 @@ namespace App.Tests
 			item.Quality.Should().Be(expectedQuality);
 			item.SellIn.Should().Be(expectedSellIn);
 		}
+		
 		[Theory]
 		[InlineData(5, 5, 5, 5)]
-		public void IncrementQualityAndDecrementSellIn_ForSulfuras(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
+		public void NotChangeQualityAndSellIn_ForSulfuras(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
 		{
 			var items = Create.Items()
 				.WithName("Sulfuras, Hand of Ragnaros")
