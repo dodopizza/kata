@@ -69,5 +69,25 @@ namespace App.Tests
 			item.Quality.Should().Be(expectedQuality);
 			item.SellIn.Should().Be(expectedSellIn);
 		}
+
+		[Theory]
+		[InlineData(11, 11, 12, 10)]
+		public void ChangeQualityAndSellIn_ForBackstagePasses(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
+		{
+			var items = Create.Items()
+				.WithName("Backstage passes to a TAFKAL80ETC concert")
+				.WithQuality(startingQuality)
+				.WithSellIn(staringSellIn)
+				.Please();
+			var gildedRose = Create.GildedRose()
+				.WithItems(items)
+				.Please();
+
+			gildedRose.UpdateQuality();
+
+			var item = items.Should().ContainSingle().Which;
+			item.Quality.Should().Be(expectedQuality);
+			item.SellIn.Should().Be(expectedSellIn);
+		}
 	}
 }
