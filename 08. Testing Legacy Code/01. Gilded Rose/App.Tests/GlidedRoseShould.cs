@@ -11,6 +11,7 @@ namespace App.Tests
 		[Theory]
 		[InlineData(5, 5, 4, 4)]
 		[InlineData(5, 0, 3, -1)]
+		[InlineData(0, 5, 0, 4)]
 		public void DecrementQualityAndSellIn(int startingQuality, int staringSellIn, int expectedQuality, int expectedSellIn)
 		{
 			var items = Create.Items()
