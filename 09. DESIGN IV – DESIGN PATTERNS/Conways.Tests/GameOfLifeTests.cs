@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Conways;
 using Xunit;
 
 namespace Conways.Tests
@@ -30,7 +29,7 @@ namespace Conways.Tests
 		{
 			var seed = new List<Cell> {Cell.Of(0, 0)};
 			var game = new GameOfLife(seed);
-			var neighbours = game.Neighbours(Cell.Of(0, 0)).ToList();
+			var neighbours = Cell.Of(0, 0).Neighbours().ToList();
 			Assert.Equal(8, neighbours.Count);
 			Assert.DoesNotContain(Cell.Of(0, 0), neighbours);
 			Assert.Contains(Cell.Of(-1, -1), neighbours);
@@ -48,7 +47,7 @@ namespace Conways.Tests
 		{
 			var seed = new List<Cell> {Cell.Of(1, 0)};
 			var game = new GameOfLife(seed);
-			var neighbours = game.Neighbours(Cell.Of(1, 0)).ToList();
+			var neighbours = Cell.Of(1, 0).Neighbours().ToList();
 			Assert.Equal(8, neighbours.Count);
 			Assert.DoesNotContain(Cell.Of(1, 0), neighbours);
 			Assert.Contains(Cell.Of(0, -1), neighbours);
@@ -85,7 +84,7 @@ namespace Conways.Tests
 			var seed = new List<Cell> {Cell.Of(0, 0)};
 			var game = new GameOfLife(seed);
 			var candidates = game.BirthCandidates();
-			Assert.Equal(game.Neighbours(Cell.Of(0, 0)), candidates);
+			Assert.Equal(Cell.Of(0, 0).Neighbours(), candidates);
 		}
 
 		[Fact]
