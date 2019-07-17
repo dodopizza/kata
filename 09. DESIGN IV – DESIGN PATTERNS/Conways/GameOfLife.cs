@@ -1,101 +1,142 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Conways
 {
-    public class GameOfLife
-    {
-        private List<int[]> _aliveCells;
+	public class Cell : IEquatable<Cell>
+	{
+		public int X { get; set; }
+		public int Y { get; set; }
 
-        public GameOfLife(List<int[]> seed)
-        {
-            _aliveCells = seed;
-        }
 
-        public IEnumerable<int[]> AliveCells => _aliveCells;
+		public bool SequenceEqual(Cell neighbour)
+		{
+			return X == neighbour.X && Y == neighbour.Y;
+		}
 
-        public IEnumerable<int[]> Tick()
-        {
-            _aliveCells = Survivors()
-                .Union(Births())
-                .OrderBy(c => c[1])
-                .ThenBy(c => c[0])
-                .ToList();
-            return _aliveCells;
-        }
+		public static Cell Of(int x, int y)
+		{
+			return new Cell {X = x, Y = y};
+		}
 
-        private List<int[]> Survivors()
-        {
-            var survivors = new List<int[]>();
-            foreach (var cell in _aliveCells)
-            {
-                if (LiveNeighbours(cell).Count() == 2 || LiveNeighbours(cell).Count() == 3)
-                {
-                    survivors.Add(cell);
-                }
-            }
+		public bool Equals(Cell other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return X == other.X && Y == other.Y;
+		}
 
-            return survivors;
-        }
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((Cell) obj);
+		}
 
-        public IEnumerable<int[]> LiveNeighbours(int[] cell)
-        {
-            return Neighbours(cell)
-                .Where(neighbour => _aliveCells.Any(c => c.SequenceEqual(neighbour)))
-                .ToList();
-        }
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				return (X * 397) ^ Y;
+			}
+		}
+	}
 
-        public IEnumerable<int[]> DeadNeighbours(int[] cell)
-        {
-            return Neighbours(cell)
-                .Where(neighbour => !_aliveCells.Any(c => c.SequenceEqual(neighbour)))
-                .ToList();
-        }
+	public class GameOfLife
+	{
+		private List<Cell> _aliveCells;
 
-        public IEnumerable<int[]> Neighbours(int[] cell)
-        {
-            var deltas = new List<int[]>
-            {
-                new[] {-1, -1},
-                new[] {0, -1},
-                new[] {1, -1},
-                new[] {-1, 0},
-                new[] {1, 0},
-                new[] {-1, 1},
-                new[] {0, 1},
-                new[] {1, 1}
-            };
+		public GameOfLife(List<Cell> seed)
+		{
+			_aliveCells = seed;
+		}
 
-            var neighbours = new List<int[]>();
-            foreach (var delta in deltas)
-            {
-                var x = cell[0] + delta[0];
-                var y = cell[1] + delta[1];
-                neighbours.Add(new[] { x, y });
-            }
+		public IEnumerable<Cell> AliveCells => _aliveCells;
 
-            return neighbours;
-        }
+		public IEnumerable<Cell> Tick()
+		{
+			_aliveCells = Survivors()
+				.Union(Births())
+				.OrderBy(c => c.Y)
+				.ThenBy(c => c.X)
+				.ToList();
+			return _aliveCells;
+		}
 
-        public IEnumerable<int[]> Births()
-        {
-            return BirthCandidates()
-                .Where(candidate => LiveNeighbours(candidate).Count() == 3)
-                .ToList();
-        }
+		private List<Cell> Survivors()
+		{
+			var survivors = new List<Cell>();
+			foreach (var cell in _aliveCells)
+			{
+				if (LiveNeighbours(cell).Count() == 2 || LiveNeighbours(cell).Count() == 3)
+				{
+					survivors.Add(cell);
+				}
+			}
 
-        public IEnumerable<int[]> BirthCandidates()
-        {
-            var deadWithOneLiveNeighbour = new List<List<int[]>>();
-            foreach (var cell in _aliveCells)
-            {
-                deadWithOneLiveNeighbour.Add(new List<int[]>(DeadNeighbours(cell)));
-            }
+			return survivors;
+		}
 
-            return deadWithOneLiveNeighbour.SelectMany(list => list)
-                .GroupBy(g => new { X = g[0], Y = g[1] })
-                .Select(g => g.First())
-                .ToList();
-        }
-    }
+		public IEnumerable<Cell> LiveNeighbours(Cell cell)
+		{
+			return Neighbours(cell)
+				.Where(neighbour => _aliveCells.Any(c => c.SequenceEqual(neighbour)))
+				.ToList();
+		}
+
+		public IEnumerable<Cell> DeadNeighbours(Cell cell)
+		{
+			return Neighbours(cell)
+				.Where(neighbour => !_aliveCells.Any(c => c.SequenceEqual(neighbour)))
+				.ToList();
+		}
+
+		public IEnumerable<Cell> Neighbours(Cell cell)
+		{
+			var deltas = new List<Cell>
+			{
+				Cell.Of(-1, -1),
+				Cell.Of(0, -1),
+				Cell.Of(1, -1),
+				Cell.Of(-1, 0),
+				Cell.Of(1, 0),
+				Cell.Of(-1, 1),
+				Cell.Of(0, 1),
+				Cell.Of(1, 1),
+			};
+
+			var neighbours = new List<Cell>();
+			foreach (var delta in deltas)
+			{
+				var x = cell.X + delta.X;
+				var y = cell.Y + delta.Y;
+				neighbours.Add(Cell.Of(x, y));
+			}
+
+			return neighbours;
+		}
+
+		public IEnumerable<Cell> Births()
+		{
+			return BirthCandidates()
+				.Where(candidate => LiveNeighbours(candidate).Count() == 3)
+				.ToList();
+		}
+
+		public IEnumerable<Cell> BirthCandidates()
+		{
+			var deadWithOneLiveNeighbour = new List<List<Cell>>();
+			foreach (var cell in _aliveCells)
+			{
+				deadWithOneLiveNeighbour.Add(new List<Cell>(DeadNeighbours(cell)));
+			}
+
+			return deadWithOneLiveNeighbour.SelectMany(list => list)
+				.GroupBy(g => new {X = g.X, Y = g.Y})
+				.Select(g => g.First())
+				.ToList();
+		}
+	}
 }
