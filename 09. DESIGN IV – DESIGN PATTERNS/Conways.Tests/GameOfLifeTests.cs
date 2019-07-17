@@ -12,7 +12,7 @@ namespace Conways.Tests
 			var seed = new List<Cell>();
 			var game = new GameOfLife(seed);
 			var nextGeneration = game.Tick();
-			Assert.Equal(new List<Cell>(), nextGeneration);
+			Assert.Equal(new FieldOfCells(new List<Cell>()), nextGeneration);
 		}
 
 		[Fact]
@@ -60,14 +60,6 @@ namespace Conways.Tests
 			Assert.Contains(Cell.Of(2, 1), neighbours);
 		}
 
-		[Fact]
-		public void It_gets_the_live_neighbours()
-		{
-			var seed = new List<Cell> {Cell.Of(1, 0), Cell.Of(2, 0)};
-			var game = new GameOfLife(seed);
-			var liveNeighbours = game.LiveNeighbours(Cell.Of(1, 0));
-			Assert.Equal(new List<Cell> {Cell.Of(2, 0)}, liveNeighbours);
-		}
 
 		[Fact]
 		public void It_ticks_with_a_survival()
@@ -78,23 +70,6 @@ namespace Conways.Tests
 			Assert.Equal(new List<Cell> {Cell.Of(1, 0), Cell.Of(2, 0), Cell.Of(1, 1), Cell.Of(2, 1)}, game.AliveCells);
 		}
 
-		[Fact]
-		public void It_gets_birth_candidates()
-		{
-			var seed = new List<Cell> {Cell.Of(0, 0)};
-			var game = new GameOfLife(seed);
-			var candidates = game.BirthCandidates();
-			Assert.Equal(Cell.Of(0, 0).Neighbours(), candidates);
-		}
-
-		[Fact]
-		public void It_ticks_with_a_birth()
-		{
-			var seed = new List<Cell> {Cell.Of(2, 0), Cell.Of(1, 1), Cell.Of(2, 1)};
-			var game = new GameOfLife(seed);
-			var births = game.Births();
-			Assert.Equal(new List<Cell> {Cell.Of(1, 0)}, births);
-		}
 
 		[Fact]
 		public void It_generates_the_blinker_pattern()
@@ -103,8 +78,8 @@ namespace Conways.Tests
 			var game = new GameOfLife(seed);
 			var secondGeneration = game.Tick();
 			var thirdGeneration = game.Tick();
-			Assert.Equal(new List<Cell> {Cell.Of(0, 1), Cell.Of(1, 1), Cell.Of(2, 1)}, secondGeneration);
-			Assert.Equal(new List<Cell> {Cell.Of(1, 0), Cell.Of(1, 1), Cell.Of(1, 2)}, thirdGeneration);
+			Assert.Equal(new FieldOfCells(new List<Cell> {Cell.Of(0, 1), Cell.Of(1, 1), Cell.Of(2, 1)}), secondGeneration);
+			Assert.Equal(new FieldOfCells(new List<Cell> {Cell.Of(1, 0), Cell.Of(1, 1), Cell.Of(1, 2)}), thirdGeneration);
 		}
 	}
 }
