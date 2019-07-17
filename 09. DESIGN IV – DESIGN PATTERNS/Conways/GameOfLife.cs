@@ -3,6 +3,16 @@ using System.Linq;
 
 namespace Conways
 {
+	public class LiveCellsStrategy : INeighboursStrategy
+	{
+		public IEnumerable<Cell> Get(IEnumerable<Cell> neighbours, IEnumerable<Cell> aliveCells)
+		{
+			return neighbours
+				.Where(neighbour => aliveCells.Any(c => c.SequenceEqual(neighbour)))
+				.ToList();
+		}
+	}
+
 	public class GameOfLife
 	{
 		private FieldOfCells _fieldOfCells;
@@ -16,7 +26,7 @@ namespace Conways
 
 		public FieldOfCells Tick()
 		{
-			_fieldOfCells = new FieldOfCells(_fieldOfCells.Survivors()
+			_fieldOfCells = new FieldOfCells(Survivors()
 				.Union(_fieldOfCells.Births())
 				.OrderBy(c => c.Y)
 				.ThenBy(c => c.X)
@@ -24,14 +34,19 @@ namespace Conways
 			return _fieldOfCells;
 		}
 
+		public List<Cell> Survivors()
+		{
+			var survivors = new List<Cell>();
+			foreach (var cell in _fieldOfCells._aliveCells)
+			{
+				var countOfLifeNeighbours = _fieldOfCells.Neighbours(cell, new LiveCellsStrategy()).Count();
+				if (countOfLifeNeighbours == 2 || countOfLifeNeighbours == 3)
+				{
+					survivors.Add(cell);
+				}
+			}
 
-
-		
-
-		
-
-		
-
-		
+			return survivors;
+		}
 	}
 }

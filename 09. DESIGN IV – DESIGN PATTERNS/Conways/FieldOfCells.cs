@@ -24,7 +24,7 @@ namespace Conways
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			if (obj.GetType() != this.GetType()) return false;
+			if (obj.GetType() != GetType()) return false;
 			return Equals((FieldOfCells) obj);
 		}
 
@@ -33,6 +33,12 @@ namespace Conways
 			return (_aliveCells != null ? _aliveCells.GetHashCode() : 0);
 		}
 
+		public IEnumerable<Cell> Neighbours(Cell cell, INeighboursStrategy strategy)
+		{
+			return strategy.Get(cell.Neighbours(), _aliveCells);
+		}
+
+		
 		public IEnumerable<Cell> LiveNeighbours(Cell cell)
 		{
 			return cell.Neighbours()
@@ -68,19 +74,7 @@ namespace Conways
 				.ToList();
 		}
 
-		public List<Cell> Survivors()
-		{
-			var survivors = new List<Cell>();
-			foreach (var cell in _aliveCells)
-			{
-				if (LiveNeighbours(cell).Count() == 2 || LiveNeighbours(cell).Count() == 3)
-				{
-					survivors.Add(cell);
-				}
-			}
 
-			return survivors;
-		}
 
 	}
 }
